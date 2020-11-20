@@ -1,0 +1,16 @@
+﻿CREATE TABLE [dbo].[user] (
+    [user_id]      INT                IDENTITY (1, 1) NOT NULL,
+    [vendor_id]    INT                NULL,
+    [user_name]    VARCHAR (25)       NOT NULL,
+    [first_name]   VARCHAR (25)       NOT NULL,
+    [last_name]    VARCHAR (25)       NOT NULL,
+    [password]     VARCHAR (MAX)      NOT NULL,
+    [email]        VARCHAR (50)       NOT NULL,
+    [address]      VARCHAR (MAX)      NULL,
+    [postal_code]  VARCHAR (25)       NULL,
+    [card_number]  VARCHAR (50)       NULL,
+    [date_created] DATETIMEOFFSET (7) NOT NULL,
+    [user_role]    INT                NOT NULL,
+    PRIMARY KEY CLUSTERED ([user_id] ASC)
+);
+
