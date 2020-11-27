@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[product]
+(
+	[product_id] INT NOT NULL PRIMARY KEY, 
+    [vendor_id] INT NOT NULL FOREIGN KEY REFERENCES [vendor](vendor_id), 
+    [product_name] VARCHAR(50) NOT NULL,
+
+)

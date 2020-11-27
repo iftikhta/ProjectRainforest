@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[cart]
+(
+	[user_id] INT NOT NULL FOREIGN KEY REFERENCES [user](user_id),
+	[product_id] INT NOT NULL FOREIGN KEY REFERENCES [product](product_id),
+    [quantity] INT NOT NULL
+);
