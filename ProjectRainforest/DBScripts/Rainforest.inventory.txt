@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[inventory]
+(
+	[product_id] INT NOT NULL PRIMARY KEY, 
+    [count] INT NOT NULL,
+	FOREIGN KEY ([product_id]) REFERENCES [product] ([product_id])
+)
