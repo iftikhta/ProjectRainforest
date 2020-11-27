@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[review]
+(
+	[user_id] INT NOT NULL FOREIGN KEY REFERENCES [user](user_id), 
+    [product_id] INT NOT NULL FOREIGN KEY REFERENCES [product](product_id), 
+    [review_title] VARCHAR(50) NOT NULL, 
+    [review_description] VARCHAR(MAX) NOT NULL, 
+    [review_rating] INT NOT NULL
+)
