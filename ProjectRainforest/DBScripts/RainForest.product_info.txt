@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ProjectRainforest.DBScripts
-{
-    public class RainForest
-    {
-    }
-}
+﻿CREATE TABLE [dbo].[product_info]
+(
+	[product_id] INT NOT NULL FOREIGN KEY references [product](product_id),
+	[product_description] VARCHAR(max), 
+	[product_price] INT NOT NULL, 
+	[product_img] VARCHAR(max),
+	[product_rating] FLOAT, 
+	[date_added] date NOT NULL,
+	[rating_count] INT 
+)
