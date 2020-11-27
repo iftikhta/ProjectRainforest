@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[vendor] (
+    [vendor_id]          INT             NOT NULL Primary Key IDENTITY,
+    [vendor_title]       VARCHAR (50)    NOT NULL,
+    [vendor_description] VARBINARY (MAX) NOT NULL,
+    [vendor_rating_avg]  FLOAT (53)      NULL,
+    [vendor_img]         VARCHAR (MAX)   NULL
+);
