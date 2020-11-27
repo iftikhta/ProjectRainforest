@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProjectRainforest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace ProjectRainforest
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<RainforestContext>(options =>
+            services.AddDbContext<RainforestDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("azureRainforestDB")));
 
         }
