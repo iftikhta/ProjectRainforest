@@ -1,0 +1,8 @@
+CREATE TABLE [dbo].[order_contents]
+(
+	[order_id] INT NOT NULL FOREIGN KEY REFERENCES [order](order_id),
+	[product_id] INT NOT NULL FOREIGN KEY REFERENCES [product](product_id), 
+    [price_paid] FLOAT NOT NULL, 
+    [quantity] INT NOT NULL,
+
+)

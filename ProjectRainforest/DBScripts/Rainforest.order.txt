@@ -1,0 +1,11 @@
+CREATE TABLE [dbo].[order]
+(
+	[order_id] INT NOT NULL IDENTITY (1, 1) PRIMARY KEY, 
+    [user_id] INT NOT NULL FOREIGN KEY REFERENCES [user](user_id), 
+    [date_placed] DATETIMEOFFSET NOT NULL, 
+    [date_user_cancelled] DATETIMEOFFSET NULL, 
+    [date_vendor_cancelled] DATETIMEOFFSET NULL, 
+    [date_fulfilled] DATETIMEOFFSET NULL, 
+    [order_status] NVARCHAR(50) NOT NULL, 
+    [total] FLOAT NOT NULL
+)
