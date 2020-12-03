@@ -40,6 +40,15 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult ViewProduct(int productID)
+        {
+            //ShowAProduct
+            Product foundProduct = context.Products.First(x=> x.ProductId.Equals(productID));
+
+            return View(foundProduct);
+        }
+
         [HttpPost]
         public ViewResult AddProduct(ProductInfo productResponse, string name, int vendorId)
         {
