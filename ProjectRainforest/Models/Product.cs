@@ -13,5 +13,6 @@ namespace ProjectRainforest.Models
 
         public virtual Vendor Vendor { get; set; }
         public virtual Inventory Inventory { get; set; }
+        public virtual ProductInfo ProductInfo { get; set; }
     }
 }
