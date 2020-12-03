@@ -50,6 +50,8 @@ namespace ProjectRainforest.Controllers
                 newProduct.ProductName = name;
                 newProduct.VendorId = vendorId;
                 context.Products.Add(newProduct);
+                Product x = context.Products.Find(newProduct);
+                productResponse.ProductId = x.ProductId;
                 context.ProductInfos.Add(productResponse);
                 context.SaveChanges();
 
