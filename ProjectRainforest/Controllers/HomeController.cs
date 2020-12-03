@@ -11,6 +11,8 @@ namespace ProjectRainforest.Controllers
 {
     public class HomeController : Controller
     {
+        static RainforestDBContext context = new RainforestDBContext();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -25,10 +27,39 @@ namespace ProjectRainforest.Controllers
 
         public IActionResult ViewProducts()
         {
-            var context = new RainforestDBContext();
+            
             ViewBag.items = context.Products.ToList();
             ViewBag.details = context.ProductInfos.ToList();
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            //returning AddProduct
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult AddProduct(ProductInfo productResponse, string name, int vendorId)
+        {
+            if (ModelState.IsValid)
+            {
+
+                Product newProduct = new Product();
+                newProduct.ProductName = name;
+                newProduct.VendorId = vendorId;
+                context.Products.Add(newProduct);
+                context.ProductInfos.Add(productResponse);
+                context.SaveChanges();
+
+                return View("ViewProducts");
+            }
+            else
+            {
+                // there is a validation error
+                return View("Index");
+            }
         }
 
         public IActionResult Privacy()

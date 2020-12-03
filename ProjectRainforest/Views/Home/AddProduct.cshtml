@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ProjectRainforest.Models.ProductInfo
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <title>RsvpForm</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h4>RSVP</h4></div>
+        <div class="panel-body">
+            <form class="p-a-1" asp-action="AddProduct" method="post">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label>Product Name: </label>
+                    <input class="form-control" name="name" />
+                </div>
+                <div class="form-group">
+                    <label >Vendor Id:</label>
+                    <input class="form-control" name="vendorId" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductDescription">Description:</label>
+                    <input class="form-control" asp-for="ProductDescription" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductPrice">Address:</label>
+                    <input class="form-control" asp-for="ProductPrice" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateAdded">Social Network Interest:</label>
+                    <input class="form-control" asp-for="DateAdded" />
+                </div>
+                <span class="text-center" asp-for="Interest">
+                    <button class="btn btn-primary" name="Attend" value="true" type="submit">
+                            Add Item
+                    </button>
+                </span>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
