@@ -43,9 +43,10 @@ namespace ProjectRainforest.Controllers
         [HttpGet]
         public IActionResult ViewProduct(int productID)
         {
-            //ShowAProduct
-            Product foundProduct = context.Products.First(x=> x.ProductId.Equals(productID));
+            int id = int.Parse(RouteData.Values["id"].ToString());
 
+            Product foundProduct = context.Products.First(x=> x.ProductId.Equals(id));
+            ProductInfo foundProductInfo = context.ProductInfos.First(x => x.ProductId.Equals(id));
             return View(foundProduct);
         }
 
