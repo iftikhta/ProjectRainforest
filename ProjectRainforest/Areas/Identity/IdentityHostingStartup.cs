@@ -18,9 +18,15 @@ namespace ProjectRainforest.Areas.Identity
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<RainforestAuthContext>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("RainforestAuthContextConnection")));
+                        context.Configuration.GetConnectionString("azureRainforestDB")));
 
-                services.AddDefaultIdentity<RainforestUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<RainforestUser>(options => {
+
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    
+                    })
                     .AddEntityFrameworkStores<RainforestAuthContext>();
             });
         }
