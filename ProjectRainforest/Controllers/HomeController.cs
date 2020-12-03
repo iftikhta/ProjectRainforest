@@ -11,7 +11,7 @@ namespace ProjectRainforest.Controllers
 {
     public class HomeController : Controller
     {
-        static RainforestDBContext context = new RainforestDBContext();
+        public static RainforestDBContext context = new RainforestDBContext();
 
         private readonly ILogger<HomeController> _logger;
 
@@ -45,16 +45,26 @@ namespace ProjectRainforest.Controllers
         {
             if (ModelState.IsValid)
             {
+                int id = 0;
+                int i = context.Products.ToList().Count() + 1;
 
+               /* foreach (Product prod in (context.Products.ToList()))
+                {
+                    i++;
+                }*/
                 Product newProduct = new Product();
+                newProduct.ProductId = i;
                 newProduct.ProductName = name;
                 newProduct.VendorId = vendorId;
                 context.Products.Add(newProduct);
-                Product x = context.Products.Find(newProduct);
-                productResponse.ProductId = x.ProductId;
+                //Product x = context.Products.Find(newProduct);
+                context.SaveChanges();
+                productResponse.Product = newProduct;
+                productResponse.ProductId = i;
                 context.ProductInfos.Add(productResponse);
                 context.SaveChanges();
-
+                ViewBag.items = context.Products.ToList();
+                ViewBag.details = context.ProductInfos.ToList();
                 return View("ViewProducts");
             }
             else
