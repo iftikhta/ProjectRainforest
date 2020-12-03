@@ -27,6 +27,7 @@ namespace ProjectRainforest.Controllers
         {
             var context = new RainforestDBContext();
             ViewBag.items = context.Products.ToList();
+            ViewBag.details = context.ProductInfos.ToList();
             return View();
         }
 

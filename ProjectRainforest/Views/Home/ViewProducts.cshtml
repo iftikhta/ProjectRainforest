@@ -7,7 +7,25 @@
     <table>
         @foreach (Product prod in (List<Product>)ViewBag.items)
         {
-            <tr>@prod.ProductName.ToString()</tr>
+            <tr>
+                <td>
+                   Item: @prod.ProductName.ToString()
+                </td>
+                @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.details)
+                 {
+                     @if (prodInfo.ProductId == prod.ProductId)
+                      {
+                         <td>
+                            Description: @prodInfo.ProductDescription.ToString()
+                         </td>
+                         <td>
+                             Price: @prodInfo.ProductPrice.ToString()
+                         </td>
+                      }
+                 }
+                
+
+            </tr>
         }
     </table>
 
