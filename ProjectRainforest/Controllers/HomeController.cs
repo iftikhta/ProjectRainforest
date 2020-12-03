@@ -23,6 +23,13 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
+        public IActionResult ViewProducts()
+        {
+            var context = new RainforestDBContext();
+            ViewBag.items = context.Products.ToList();
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

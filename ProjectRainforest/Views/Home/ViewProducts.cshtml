@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Product List</h1>
+    <table>
+        @foreach (Product prod in (List<Product>)ViewBag.items)
+        {
+            <tr>@prod.ProductName.ToString()</tr>
+        }
+    </table>
+
+</div>
+
