@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "ViewProduct";
-    Layout = "_layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>ViewProduct</h1>
@@ -11,21 +11,24 @@
     <h4>Product</h4>
     <hr />
     <dl class="row">
+  
+
         <dt class = "col-sm-2">
+
             @Html.DisplayNameFor(model => model.ProductName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd> class = "col-sm-10">
             @Html.DisplayFor(model => model.ProductName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Vendor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Vendor.VendorTitle)
+            @Html.DisplayFor(model => model.Vendor.VendorDescription)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
+    @*<a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a>*@ |
     <a asp-action="Index">Back to List</a>
 </div>
