@@ -50,6 +50,8 @@ namespace ProjectRainforest.Controllers
             return View(foundProduct);
         }
 
+
+
         //Tommas
         [HttpPost]
         public ViewResult AddNewProduct(ProductInfo productResponse, string name, int vendorId)
