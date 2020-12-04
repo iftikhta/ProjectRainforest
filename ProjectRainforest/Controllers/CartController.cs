@@ -23,5 +23,50 @@ namespace ProjectRainforest.Controllers
         {
             return View();
         }
+
+        //called when you are adding a product to your cart, expects a user_id, prodct_id and quantity
+        [HttpPost]
+        public ViewResult AddToCart(int userId, int productId, int quantity)
+        {
+            //testing stuff delete later
+            userId = 2;
+
+            if (ModelState.IsValid)
+            {
+                //Create a new cart row if one doesnt exist already
+                Cart newCartRow = new Cart();
+                newCartRow.UserId = userId;
+                newCartRow.ProductId = productId;
+                newCartRow.Quantity = quantity;
+
+
+                int id = 0;
+                int i = context.Products.ToList().Count() + 1;
+
+                /* foreach (Product prod in (context.Products.ToList()))
+                 {
+                     i++;
+                 }*/
+                //Product newProduct = new Product();
+                //newProduct.ProductId = i;
+                //newProduct.ProductName = name;
+                //newProduct.VendorId = vendorId;
+                //context.Products.Add(newProduct);
+                ////Product x = context.Products.Find(newProduct);
+                //context.SaveChanges();
+                //productResponse.Product = newProduct;
+                //productResponse.ProductId = i;
+                //context.ProductInfos.Add(productResponse);
+                //context.SaveChanges();
+                //ViewBag.items = context.Products.ToList();
+                //ViewBag.details = context.ProductInfos.ToList();
+                return View("ViewProducts");
+            }
+            else
+            {
+                // there is a validation error
+                return View("Index");
+            }
+        }
     }
 }
