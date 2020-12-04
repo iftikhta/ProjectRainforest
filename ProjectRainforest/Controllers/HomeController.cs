@@ -34,7 +34,7 @@ namespace ProjectRainforest.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddProduct()
+        public IActionResult AddAProduct()
         {
             //returning AddProduct
             return View();
@@ -51,7 +51,7 @@ namespace ProjectRainforest.Controllers
         }
 
         [HttpPost]
-        public ViewResult AddProduct(ProductInfo productResponse, string name, int vendorId)
+        public ViewResult AddAProduct(ProductInfo productResponse, string name, int vendorId)
         {
             if (ModelState.IsValid)
             {
