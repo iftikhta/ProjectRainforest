@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectRainforest.Controllers
 {
+    //Thomas
     public class HomeController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();

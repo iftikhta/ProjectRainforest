@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ProjectRainforest.Controllers
 {
+    //Taha
     public class ProductController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
@@ -21,6 +22,7 @@ namespace ProjectRainforest.Controllers
             _logger = logger;
         }
 
+        //Thomas
         public IActionResult ViewProducts()
         {
             ViewBag.items = context.Products.ToList();
@@ -28,7 +30,7 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
-
+        //Thomas
         [HttpGet]
         public IActionResult AddAProduct()
         {
@@ -36,9 +38,11 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
+        //Taha
         [HttpGet]
         public IActionResult ViewProduct(int productID)
         {
+            //maybe remove parameter above
             int id = int.Parse(RouteData.Values["id"].ToString());
 
             Product foundProduct = context.Products.First(x => x.ProductId.Equals(id));
@@ -46,8 +50,7 @@ namespace ProjectRainforest.Controllers
             return View(foundProduct);
         }
 
-
-
+        //Thomas
         [HttpPost]
         public ViewResult AddAProduct(ProductInfo productResponse, string name, int vendorId)
         {
