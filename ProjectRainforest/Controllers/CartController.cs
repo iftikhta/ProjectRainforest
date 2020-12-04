@@ -39,9 +39,11 @@ namespace ProjectRainforest.Controllers
                 newCartRow.ProductId = productId;
                 newCartRow.Quantity = quantity;
 
+                context.Carts.Add(newCartRow);
+                context.SaveChanges();
 
-                int id = 0;
-                int i = context.Products.ToList().Count() + 1;
+                //int id = 0;
+                //int i = context.Products.ToList().Count() + 1;
 
                 /* foreach (Product prod in (context.Products.ToList()))
                  {
@@ -60,7 +62,7 @@ namespace ProjectRainforest.Controllers
                 //context.SaveChanges();
                 //ViewBag.items = context.Products.ToList();
                 //ViewBag.details = context.ProductInfos.ToList();
-                return View("ViewProducts");
+                return View("ViewProducts"); //go to cart view or some shit
             }
             else
             {
