@@ -32,7 +32,7 @@ namespace ProjectRainforest.Controllers
 
         //Tommas
         [HttpGet]
-        public IActionResult AddAProduct()
+        public IActionResult AddNewProduct()
         {
             //returning AddProduct
             return View();
@@ -49,6 +49,8 @@ namespace ProjectRainforest.Controllers
             ProductInfo foundProductInfo = context.ProductInfos.First(x => x.ProductId.Equals(id));
             return View(foundProduct);
         }
+
+
 
         //Tommas
         [HttpPost]
