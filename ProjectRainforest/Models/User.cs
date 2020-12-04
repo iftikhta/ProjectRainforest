@@ -25,6 +25,7 @@ namespace ProjectRainforest.Models
         public DateTimeOffset DateCreated { get; set; }
         public int UserRole { get; set; }
 
+        public virtual Cart Cart { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }
