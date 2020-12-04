@@ -150,13 +150,12 @@ namespace ProjectRainforest.Models
 
             modelBuilder.Entity<Cart>(entity =>
             {
-                entity.HasKey(e => e.UserId);
+                entity.HasKey(e => new { e.UserId, e.ProductId })
+                    .HasName("PK_cart_1");
 
                 entity.ToTable("cart");
 
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("user_id");
+                entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
@@ -169,8 +168,8 @@ namespace ProjectRainforest.Models
                     .HasConstraintName("FK__cart__product_id__68487DD7");
 
                 entity.HasOne(d => d.User)
-                    .WithOne(p => p.Cart)
-                    .HasForeignKey<Cart>(d => d.UserId)
+                    .WithMany(p => p.Carts)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__cart__user_id__693CA210");
             });

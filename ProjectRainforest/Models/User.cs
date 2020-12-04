@@ -9,6 +9,7 @@ namespace ProjectRainforest.Models
     {
         public User()
         {
+            Carts = new HashSet<Cart>();
             Orders = new HashSet<Order>();
         }
 
@@ -25,7 +26,7 @@ namespace ProjectRainforest.Models
         public DateTimeOffset DateCreated { get; set; }
         public int UserRole { get; set; }
 
-        public virtual Cart Cart { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }
