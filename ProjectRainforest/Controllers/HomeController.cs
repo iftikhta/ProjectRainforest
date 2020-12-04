@@ -27,7 +27,11 @@ namespace ProjectRainforest.Controllers
 
         public IActionResult ViewProducts()
         {
-            
+            //List<ProductInfo> allProductInfos = context.ProductInfos.ToList();
+            //List<Product> allProducts = context.Products.ToList();
+            //ViewBag.pInfo = allProductInfos;
+            //ViewBag.p = allProducts;
+
             ViewBag.items = context.Products.ToList();
             ViewBag.details = context.ProductInfos.ToList();
             return View();
@@ -49,6 +53,8 @@ namespace ProjectRainforest.Controllers
             ProductInfo foundProductInfo = context.ProductInfos.First(x => x.ProductId.Equals(id));
             return View(foundProduct);
         }
+
+ 
 
         [HttpPost]
         public ViewResult AddAProduct(ProductInfo productResponse, string name, int vendorId)
