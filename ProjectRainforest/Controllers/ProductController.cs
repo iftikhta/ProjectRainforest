@@ -45,15 +45,16 @@ namespace ProjectRainforest.Controllers
 
         //Taha
         [HttpGet]
-        public ViewResult ViewProduct(string productID)
+        public IActionResult ViewProduct(int productID)
         {
             //maybe remove parameter above
-            int id = int.Parse(RouteData.Values["id"].ToString());
+            //int id = int.Parse(RouteData.Values["id"].ToString());
+            int id = productID;
 
             Product foundProduct = context.Products.FirstOrDefault(x => x.ProductId.Equals(id));
             ProductInfo foundProductInfo = context.ProductInfos.FirstOrDefault(x => x.ProductId.Equals(id));
-            ViewData.Model = foundProduct;
-            return View();
+            //ViewData.Model = foundProduct;
+            return View(foundProduct);
         }
 
 
