@@ -22,6 +22,10 @@ namespace ProjectRainforest.Controllers
             _logger = logger;
         }
 
+        public ProductController()
+        {
+        }
+
         //Tommas
         public IActionResult ViewAllProducts()
         {
@@ -43,10 +47,10 @@ namespace ProjectRainforest.Controllers
         public IActionResult ViewProduct(int productID)
         {
             //maybe remove parameter above
-            int id = int.Parse(RouteData.Values["id"].ToString());
+            int id = productID;//int.Parse(RouteData.Values["id"].ToString());
 
-            Product foundProduct = context.Products.First(x => x.ProductId.Equals(id));
-            ProductInfo foundProductInfo = context.ProductInfos.First(x => x.ProductId.Equals(id));
+            Product foundProduct = context.Products.FirstOrDefault(x => x.ProductId.Equals(id));
+            ProductInfo foundProductInfo = context.ProductInfos.FirstOrDefault(x => x.ProductId.Equals(id));
             return View(foundProduct);
         }
 

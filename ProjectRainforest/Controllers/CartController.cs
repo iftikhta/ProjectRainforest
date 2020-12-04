@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectRainforest.Controllers
 {
@@ -27,7 +28,7 @@ namespace ProjectRainforest.Controllers
         //Taha
         //called when you are adding a product to your cart, expects a user_id, prodct_id and quantity
         [HttpPost]
-        public ViewResult AddToCart(int userId, int productId, int quantity)
+        public IActionResult AddToCart(int userId, int productId, int quantity)
         {
             //fix how to recieve data 
             //testing stuff delete later
@@ -35,11 +36,13 @@ namespace ProjectRainforest.Controllers
 
             if (ModelState.IsValid)
             {
+
+                //check if it exists already and if so add/subtract from row
                 var existingCart = context.Carts.Find(userId, productId);
                 if (existingCart != null)
                 {
                     existingCart.Quantity += quantity;
-                    //push this to cart existingCart.
+                    context.Entry(existingCart).State = EntityState.Modified;
                 }
                 else
                 {
@@ -53,7 +56,8 @@ namespace ProjectRainforest.Controllers
                 }
           
                 context.SaveChanges();
-                return View("ViewProducts"); //go here after finsihing update/adding new
+                // return View("ViewProducts"); //go here after finsihing update/adding new
+                return (ActionResult)new ProductController().ViewProduct(productId);
             }
             else
             {
