@@ -28,7 +28,7 @@ namespace ProjectRainforest.Controllers
         //Taha
         //called when you are adding a product to your cart, expects a user_id, prodct_id and quantity
         [HttpPost]
-        public IActionResult AddToCart(int userId, int productId, int quantity)
+        public ViewResult AddToCart(int userId, int productId, int quantity)
         {
             //fix how to recieve data 
             //testing stuff delete later
@@ -56,8 +56,10 @@ namespace ProjectRainforest.Controllers
                 }
           
                 context.SaveChanges();
-                // return View("ViewProducts"); //go here after finsihing update/adding new
-                return (ActionResult)new ProductController().ViewProduct(productId);
+       
+
+                //return (ViewResult)new ProductController().ViewProduct(productId);
+                return View("ViewProducts"); //go here after finsihing update/adding new
             }
             else
             {
