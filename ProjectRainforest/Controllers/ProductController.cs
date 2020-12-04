@@ -22,15 +22,15 @@ namespace ProjectRainforest.Controllers
             _logger = logger;
         }
 
-        //Thomas
-        public IActionResult ViewProducts()
+        //Tommas
+        public IActionResult ViewAllProducts()
         {
             ViewBag.items = context.Products.ToList();
             ViewBag.details = context.ProductInfos.ToList();
             return View();
         }
 
-        //Thomas
+        //Tommas
         [HttpGet]
         public IActionResult AddAProduct()
         {
@@ -50,9 +50,9 @@ namespace ProjectRainforest.Controllers
             return View(foundProduct);
         }
 
-        //Thomas
+        //Tommas
         [HttpPost]
-        public ViewResult AddAProduct(ProductInfo productResponse, string name, int vendorId)
+        public ViewResult AddNewProduct(ProductInfo productResponse, string name, int vendorId)
         {
             if (ModelState.IsValid)
             {
