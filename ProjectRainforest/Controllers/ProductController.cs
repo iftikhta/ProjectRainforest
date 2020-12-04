@@ -32,7 +32,7 @@ namespace ProjectRainforest.Controllers
 
         //Tommas
         [HttpGet]
-        public IActionResult AddAProduct()
+        public IActionResult AddNewProduct()
         {
             //returning AddProduct
             return View();
