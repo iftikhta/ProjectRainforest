@@ -13,8 +13,12 @@
         <form asp-action="AddAProduct">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
+                <label>Product Name: </label>
+                <input class="form-control" name="name" />
+            </div>
+            <div class="form-group">
+                <label>Vendor Id:</label>
+                <input class="form-control" name="vendorId" />
             </div>
             <div class="form-group">
                 <label asp-for="ProductDescription" class="control-label"></label>
