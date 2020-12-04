@@ -14,7 +14,7 @@ namespace ProjectRainforest.Models
 
         public int VendorId { get; set; }
         public string VendorTitle { get; set; }
-        public byte[] VendorDescription { get; set; }
+        public string VendorDescription { get; set; }
         public double? VendorRatingAvg { get; set; }
         public string VendorImg { get; set; }
 
