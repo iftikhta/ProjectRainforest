@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Product List</h1>
+    <table>
+        @foreach (Product prod in (List<Product>)ViewBag.items)
+        {
+            <tr>
+                <td>
+                   Item: @prod.ProductName.ToString()
+                </td>
+                @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.details)
+                 {
+                     @if (prodInfo.ProductId == prod.ProductId)
+                      {
+                         <td>
+                            Description: @prodInfo.ProductDescription.ToString()
+                         </td>
+                         <td>
+                             Price: @prodInfo.ProductPrice.ToString()
+                         </td>
+                      }
+                 }
+                
+
+            </tr>
+        }
+    </table>
+
+</div>
+

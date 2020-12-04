@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace ProjectRainforest.Controllers
 {
+    //Thomas
     public class HomeController : Controller
     {
+        public static RainforestDBContext context = new RainforestDBContext();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -22,6 +25,7 @@ namespace ProjectRainforest.Controllers
         {
             return View();
         }
+
 
         public IActionResult Privacy()
         {
