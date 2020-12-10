@@ -7,6 +7,11 @@ namespace ProjectRainforest.Models
 {
     public partial class Product
     {
+        public Product()
+        {
+            Carts = new HashSet<Cart>();
+        }
+
         public int ProductId { get; set; }
         public int VendorId { get; set; }
         public string ProductName { get; set; }
@@ -14,5 +19,6 @@ namespace ProjectRainforest.Models
         public virtual Vendor Vendor { get; set; }
         public virtual Inventory Inventory { get; set; }
         public virtual ProductInfo ProductInfo { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

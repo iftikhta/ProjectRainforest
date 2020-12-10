@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectRainforest.Controllers
 {
@@ -24,43 +25,41 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
+        //Taha
         //called when you are adding a product to your cart, expects a user_id, prodct_id and quantity
         [HttpPost]
         public ViewResult AddToCart(int userId, int productId, int quantity)
         {
+            //fix how to recieve data 
             //testing stuff delete later
             userId = 2;
 
             if (ModelState.IsValid)
             {
-                //Create a new cart row if one doesnt exist already
-                Cart newCartRow = new Cart();
-                newCartRow.UserId = userId;
-                newCartRow.ProductId = productId;
-                newCartRow.Quantity = quantity;
 
+                //check if it exists already and if so add/subtract from row
+                var existingCart = context.Carts.Find(userId, productId);
+                if (existingCart != null)
+                {
+                    existingCart.Quantity += quantity;
+                    context.Entry(existingCart).State = EntityState.Modified;
+                }
+                else
+                {
+                    //Create a new cart row if one doesnt exist already
+                    Cart newCartRow = new Cart();
+                    newCartRow.UserId = userId;
+                    newCartRow.ProductId = productId;
+                    newCartRow.Quantity = quantity;
 
-                int id = 0;
-                int i = context.Products.ToList().Count() + 1;
+                    context.Carts.Add(newCartRow);
+                }
+          
+                context.SaveChanges();
+       
 
-                /* foreach (Product prod in (context.Products.ToList()))
-                 {
-                     i++;
-                 }*/
-                //Product newProduct = new Product();
-                //newProduct.ProductId = i;
-                //newProduct.ProductName = name;
-                //newProduct.VendorId = vendorId;
-                //context.Products.Add(newProduct);
-                ////Product x = context.Products.Find(newProduct);
-                //context.SaveChanges();
-                //productResponse.Product = newProduct;
-                //productResponse.ProductId = i;
-                //context.ProductInfos.Add(productResponse);
-                //context.SaveChanges();
-                //ViewBag.items = context.Products.ToList();
-                //ViewBag.details = context.ProductInfos.ToList();
-                return View("ViewProducts");
+                //return (ViewResult)new ProductController().ViewProduct(productId);
+                return View("ViewProducts"); //go here after finsihing update/adding new
             }
             else
             {

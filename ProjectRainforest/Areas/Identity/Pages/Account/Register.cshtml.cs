@@ -76,6 +76,9 @@ namespace ProjectRainforest.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            public bool RegisterAsVendor { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -94,6 +97,7 @@ namespace ProjectRainforest.Areas.Identity.Pages.Account
             {
                 var user = new RainforestUser { UserName = Input.UserName, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -109,6 +113,11 @@ namespace ProjectRainforest.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    if (Input.RegisterAsVendor)
+                    {
+                        var roleResult = await _userManager.AddToRoleAsync(user, "Vendor");
+                    }
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
@@ -118,6 +127,8 @@ namespace ProjectRainforest.Areas.Identity.Pages.Account
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
+
+                    
                 }
                 foreach (var error in result.Errors)
                 {

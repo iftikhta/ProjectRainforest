@@ -27,7 +27,7 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
-
+        [Authorize(Roles = "Vendor")] //Example of how to make a page "Vendor only"
         public IActionResult Privacy()
         {
             return View();

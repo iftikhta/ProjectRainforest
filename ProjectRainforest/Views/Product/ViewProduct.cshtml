@@ -11,18 +11,28 @@
     <h4>Product</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ProductName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ProductName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Vendor)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Vendor.VendorTitle)
         </dd>
+        @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.details)
+        {
+            @if (prodInfo.ProductId == Model.ProductId)
+            {
+                <dd class="col-sm-10">
+                    Description: @prodInfo.ProductDescription<br />
+                    Price: @prodInfo.ProductPrice<br />
+                </dd>
+            }
+        }
     </dl>
 </div>
 <div>
