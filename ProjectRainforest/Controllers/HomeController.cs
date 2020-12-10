@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProjectRainforest.Models;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectRainforest.Controllers
 {
-    //Thomas
+    [Authorize]
     public class HomeController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
@@ -26,7 +27,7 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
-
+        [Authorize(Roles = "Vendor")] //Example of how to make a page "Vendor only"
         public IActionResult Privacy()
         {
             return View();
