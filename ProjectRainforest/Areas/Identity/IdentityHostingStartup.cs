@@ -27,6 +27,7 @@ namespace ProjectRainforest.Areas.Identity
                     options.Password.RequireUppercase = false;
                     
                     })
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<RainforestAuthContext>();
             });
         }
