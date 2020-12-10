@@ -15,11 +15,16 @@ namespace ProjectRainforest.Controllers
     {
         public static RainforestDBContext context = new RainforestDBContext();
 
-        private readonly ILogger<ProductController> _logger;
+        //private readonly ILogger<ProductController> _logger;
 
-        public ProductController(ILogger<ProductController> logger)
+        //public ProductController(ILogger<ProductController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        public ProductController()
         {
-            _logger = logger;
+
         }
 
         //Tommas
@@ -43,10 +48,13 @@ namespace ProjectRainforest.Controllers
         public IActionResult ViewProduct(int productID)
         {
             //maybe remove parameter above
-            int id = int.Parse(RouteData.Values["id"].ToString());
+            //int id = int.Parse(RouteData.Values["id"].ToString());
+            int id = productID;
 
-            Product foundProduct = context.Products.First(x => x.ProductId.Equals(id));
-            ProductInfo foundProductInfo = context.ProductInfos.First(x => x.ProductId.Equals(id));
+            Product foundProduct = context.Products.FirstOrDefault(x => x.ProductId.Equals(id));
+            ProductInfo foundProductInfo = context.ProductInfos.FirstOrDefault(x => x.ProductId.Equals(id));
+            //ViewData.Model = foundProduct;
+            ViewBag.details = context.ProductInfos.ToList();
             return View(foundProduct);
         }
 
