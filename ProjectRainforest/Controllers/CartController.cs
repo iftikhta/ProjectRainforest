@@ -27,10 +27,14 @@ namespace ProjectRainforest.Controllers
 
         //Taha
         //ViewCurrentCart
-        public ViewResult ViewCart()
+        public IActionResult ViewCart(int userId)
         {
+            //Get all carts for current id as 
+            List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
 
+            ViewBag.items = context.Products.ToList();
+            ViewBag.details = context.ProductInfos.ToList();
             return View();
         }
 
