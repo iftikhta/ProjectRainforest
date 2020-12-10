@@ -17,5 +17,17 @@ namespace ProjectRainforest.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "varchar(50)")]
         public string LastName { get; set; }
+
+        [PersonalData]
+        [Column(TypeName = "varchar(50)")]
+        public string Address { get; set; }
+
+        [PersonalData]
+        [Column(TypeName = "varchar(50)")]
+        public string PostalCode { get; set; }
+
+        [PersonalData]
+        [Column(TypeName = "varchar(50)")]
+        public string CardNumber { get; set; }
     }
 }
