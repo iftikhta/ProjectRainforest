@@ -26,6 +26,7 @@ namespace ProjectRainforest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddDbContext<RainforestDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("azureRainforestDB")));
@@ -50,6 +51,7 @@ namespace ProjectRainforest
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -58,6 +60,7 @@ namespace ProjectRainforest
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+                endpoints.MapRazorPages();
             });
         }
     }
