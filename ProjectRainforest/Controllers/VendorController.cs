@@ -14,6 +14,7 @@ namespace ProjectRainforest.Controllers
     public class VendorController : Controller
     {
         private readonly UserManager<RainforestUser> _userManager;
+        public static RainforestDBContext context = new RainforestDBContext();
 
         public VendorController(UserManager<RainforestUser> userManager)
         {
@@ -33,13 +34,24 @@ namespace ProjectRainforest.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignUp(String title, String description, String url)
+        public async Task<IActionResult> SignUp(String title, String description, String url)
         {
             Vendor vendor = new Vendor();
             vendor.VendorTitle = title;
             vendor.VendorDescription = description;
             vendor.VendorImg = url;
-            return View();
+
+
+            context.Vendors.Add(vendor);
+            context.SaveChanges();
+
+            int i = context.Vendors.ToList().Last<Vendor>().VendorId;
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            user.VendorID = i;
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

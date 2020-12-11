@@ -4,7 +4,7 @@
 @{
 }
 
-    <form>
+    <form asp-action="SignUp" method="post">
         <div class="form-group">
             <label >Business Name</label>
             <input type="text" class="form-control" placeholder="title" name="title">
@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <label>Business Image URL</label>
-            <input type="text" class="form-control" placeholder="URL" name="imageURL">
+            <input type="text" class="form-control" placeholder="URL" name="url">
         </div>
 
         <Input type="submit" class="btn btn-primary" value="Submit">
