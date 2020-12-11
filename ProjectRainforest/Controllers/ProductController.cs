@@ -87,12 +87,12 @@ namespace ProjectRainforest.Controllers
                 context.SaveChanges();
                 ViewBag.items = context.Products.ToList();
                 ViewBag.details = context.ProductInfos.ToList();
-                return View("ViewProducts");
+                return View("ViewAllProducts");
             }
             else
             {
                 // there is a validation error
-                return View("Index");
+                return View("ViewAllProducts");
             }
         }
 

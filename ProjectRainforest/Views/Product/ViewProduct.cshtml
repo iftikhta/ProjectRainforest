@@ -34,7 +34,7 @@
             }
         }
         <p class="btn btn-outline-dark" style="color: white;" name="productId">
-            @Html.ActionLink("AddToCart", "ViewProduct", new { productId = Model.ProductId })
+            @Html.ActionLink("AddToCart", "AddToCart", "Cart", new { productId = Model.ProductId, userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0", quantity = 1 })
         </p>
     </dl>
 </div>
