@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ProjectRainforest.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
+using TaxServiceReference;
 
 namespace ProjectRainforest.Controllers
 {
@@ -56,7 +57,7 @@ namespace ProjectRainforest.Controllers
         //Taha
         //ViewCurrentCart
         [HttpGet]
-        public ActionResult ViewCart()
+        public async Task<ActionResult> ViewCartAsync()
         {
             //Get the user id
             string userId = _userManager.GetUserId(HttpContext.User);
@@ -80,7 +81,13 @@ namespace ProjectRainforest.Controllers
                 //Some extra useful values
                 cartTotal += currProductInfo.ProductPrice*c.Quantity;
             }
-            
+            ///Start Tax test
+            TaxServiceClient TaxMan = new TaxServiceClient();
+            double withTax = await TaxMan.CalculateTaxAsync(cartTotal).ConfigureAwait(false);
+
+            ///End Tax test
+
+            ViewBag.cartTotalWithTax = withTax;
             ViewBag.cartTotal = cartTotal;
             ViewBag.carts = cartItems;
             ViewBag.products = cartProducts;
