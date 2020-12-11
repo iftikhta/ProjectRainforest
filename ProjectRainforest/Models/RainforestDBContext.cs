@@ -23,13 +23,13 @@ namespace ProjectRainforest.Models
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
-        public virtual DbSet<Inventory> Inventorys { get; set; }
+        public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderContents> OrderContents { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductInfo> ProductInfos { get; set; }
         public virtual DbSet<Review> Review { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Vendor> Vendor { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -70,7 +70,9 @@ namespace ProjectRainforest.Models
             {
                 entity.HasIndex(e => e.UserId);
 
-                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(425);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserClaims)
@@ -87,7 +89,9 @@ namespace ProjectRainforest.Models
 
                 entity.Property(e => e.ProviderKey).HasMaxLength(128);
 
-                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(425);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserLogins)
@@ -96,29 +100,43 @@ namespace ProjectRainforest.Models
 
             modelBuilder.Entity<AspNetUserRoles>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.RoleId });
+                entity.HasNoKey();
 
                 entity.HasIndex(e => e.RoleId);
 
+                entity.Property(e => e.RoleId).IsRequired();
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(425);
+
                 entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetUserRoles)
+                    .WithMany()
                     .HasForeignKey(d => d.RoleId);
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserRoles)
+                    .WithMany()
                     .HasForeignKey(d => d.UserId);
             });
 
             modelBuilder.Entity<AspNetUserTokens>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+                entity.HasNoKey();
 
-                entity.Property(e => e.LoginProvider).HasMaxLength(128);
+                entity.Property(e => e.LoginProvider)
+                    .IsRequired()
+                    .HasMaxLength(128);
 
-                entity.Property(e => e.Name).HasMaxLength(128);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(425);
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserTokens)
+                    .WithMany()
                     .HasForeignKey(d => d.UserId);
             });
 
@@ -131,6 +149,8 @@ namespace ProjectRainforest.Models
                     .HasName("UserNameIndex")
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+                entity.Property(e => e.Id).HasMaxLength(425);
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(50)
@@ -159,18 +179,19 @@ namespace ProjectRainforest.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
+
+                entity.Property(e => e.VendorId).HasColumnName("VendorID");
             });
 
             modelBuilder.Entity<Cart>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.ProductId })
-                    .HasName("PK_cart_1");
+                entity.HasKey(e => new { e.UserId, e.ProductId });
 
                 entity.ToTable("cart");
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_id")
-                    .HasMaxLength(50);
+                    .HasMaxLength(425);
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
@@ -181,12 +202,6 @@ namespace ProjectRainforest.Models
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__cart__product_id__68487DD7");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Cart)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__cart__user_id__693CA210");
             });
 
             modelBuilder.Entity<Inventory>(entity =>
@@ -273,9 +288,7 @@ namespace ProjectRainforest.Models
             {
                 entity.ToTable("product");
 
-                entity.Property(e => e.ProductId)
-                    .HasColumnName("product_id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
 
                 entity.Property(e => e.ProductName)
                     .IsRequired()
