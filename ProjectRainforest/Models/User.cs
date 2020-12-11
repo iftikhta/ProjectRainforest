@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace ProjectRainforest.Models
 {
     public partial class User
     {
         public User()
         {
-            Carts = new HashSet<Cart>();
-            Orders = new HashSet<Order>();
+            Order = new HashSet<Order>();
         }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int? VendorId { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -26,7 +23,6 @@ namespace ProjectRainforest.Models
         public DateTimeOffset DateCreated { get; set; }
         public int UserRole { get; set; }
 
-        public virtual ICollection<Cart> Carts { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Order { get; set; }
     }
 }

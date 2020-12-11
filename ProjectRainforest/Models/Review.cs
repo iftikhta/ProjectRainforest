@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace ProjectRainforest.Models
 {
     public partial class Review
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int ProductId { get; set; }
         public string ReviewTitle { get; set; }
         public string ReviewDescription { get; set; }

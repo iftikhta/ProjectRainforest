@@ -42,10 +42,10 @@ namespace ProjectRainforest.Controllers
             vendor.VendorImg = url;
 
 
-            context.Vendors.Add(vendor);
+            context.Vendor.Add(vendor);
             context.SaveChanges();
 
-            int i = context.Vendors.ToList().Last<Vendor>().VendorId;
+            int i = context.Vendor.ToList().Last<Vendor>().VendorId;
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
             user.VendorID = i;
