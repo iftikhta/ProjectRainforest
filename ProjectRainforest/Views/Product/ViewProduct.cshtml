@@ -33,6 +33,9 @@
                 </dd>
             }
         }
+        <p class="btn btn-outline-dark" style="color: white;" name="productId">
+            @Html.ActionLink("AddToCart", "ViewProduct", new { productId = Model.ProductId })
+        </p>
     </dl>
 </div>
 <div>
