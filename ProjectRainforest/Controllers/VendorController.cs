@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProjectRainforest.Areas.Identity.Data;
+using ProjectRainforest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,16 @@ namespace ProjectRainforest.Controllers
         public IActionResult SignUp()
         {
             return View("SignUp");
+        }
+
+        [HttpPost]
+        public IActionResult SignUp(String title, String description, String url)
+        {
+            Vendor vendor = new Vendor();
+            vendor.VendorTitle = title;
+            vendor.VendorDescription = description;
+            vendor.VendorImg = url;
+            return View();
         }
     }
 }
