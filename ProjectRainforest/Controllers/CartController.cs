@@ -161,8 +161,9 @@ namespace ProjectRainforest.Controllers
                 context.SaveChanges();
 
 
+                return RedirectToAction("ViewCart");
                 //return (ViewResult)new ProductController().ViewProduct(productId);
-                return View("ViewCart"); //go here after finsihing update/adding new
+                //return View("ViewCart"); //go here after finsihing update/adding new
             }
             else
             {
