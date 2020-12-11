@@ -8,43 +8,57 @@
     ViewBag.products = cartProducts;
     ViewBag.productsInfo = cartProductInfos;*@
 
-@ViewBag.cartTotal
+
 
 @*@ViewBag.products[0].ProductName;*@
 
-hi
 
+<h1>Your Shopping Cart:</h1>
 
-<h1>ViewCart</h1>
-
-<div class="text-center">
-    <h1 class="display-4">Product List</h1>
-
-    @foreach (Product prod in (List<Product>)ViewBag.products)
-    {
-        //<form asp-action="Products">
-        <div class="card " style=" padding: 18rem; margin: auto; text-align: center">
-            <div class="card-body">
-                <h5 class="card-title" value="">@prod.ProductName.ToString()</h5>
-                @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.productsInfo)
+@foreach (Product prod in (List<Product>)ViewBag.products)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title" value="">@prod.ProductName.ToString()</h5>
+            @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.productsInfo)
+            {
+                @if (prodInfo.ProductId == prod.ProductId)
                 {
-                    @if (prodInfo.ProductId == prod.ProductId)
-                    {
-                        <div>
-                            Description: @prodInfo.ProductDescription
-                            <br />
-                            Price: @prodInfo.ProductPrice
-                            <br />
-                            <p class="btn btn-outline-dark" style="color: white;" name="productId">
-                                @Html.ActionLink("ViewProduct", "ViewProduct", new { productId = prod.ProductId })
-                            </p>
-                        </div>
+                    <p>Description: @prodInfo.ProductDescription</p>
+                    <p>Price: @prodInfo.ProductPrice</p>
+                    <form method="post" asp-controller="Cart" asp-action="UpdateCartItem">
+                        @foreach (Cart cart in (ViewBag.carts))
+                        {
+                            if (cart.ProductId == prod.ProductId)
+                            {
+                                <input type="hidden" id="custId" name="productId" value="@prod.ProductId">
+                                <div class="row">
+                                    <select class="form-control ml-2" id="sel1" name="quantity" style="width: 100px;">
+                                        <option selected>@cart.Quantity</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                    </select>
+                                    <input type="submit" class="btn btn-primary ml-2" value="Update" />
+                                </div>
+                            }
 
-                    }
+                        }
+                    </form>
+
                 }
-            </div>
+            }
         </div>
-        //</form>
+    </div>
 
-    }
-</div>
+
+    //</form>
+
+}
+<hr />
+<h4>total: @ViewBag.cartTotal</h4>
