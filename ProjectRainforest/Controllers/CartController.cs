@@ -20,6 +20,11 @@ namespace ProjectRainforest.Controllers
             _logger = logger;
         }
 
+        //public CartController()
+        //{
+
+        //}
+
         public IActionResult Index()
         {
             return View();
