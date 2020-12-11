@@ -36,12 +36,15 @@ namespace ProjectRainforest.Controllers
             List<Product> cartProducts = new List<Product>();
             List<ProductInfo> cartProductInfos = new List<ProductInfo>();
 
+            float cartTotal = 0;
             foreach (Cart c in cartItems){ //fuck im good
                 Product currProduct = context.Products.Find(c.ProductId);
                 ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
                 cartProducts.Append(currProduct);
                 cartProductInfos.Append(currProductInfo);
             }
+
+
 
             ViewBag.carts = cartItems;
             ViewBag.products = cartProducts;
