@@ -4,6 +4,10 @@
     ViewData["Title"] = "ViewProduct";
     Layout = "_layout";
 }
+@using Microsoft.AspNetCore.Identity
+@using ProjectRainforest.Areas.Identity.Data
+
+@inject UserManager<RainforestUser> UserManager
 
 <h1>ViewProduct</h1>
 
@@ -27,14 +31,15 @@
         {
             @if (prodInfo.ProductId == Model.ProductId)
             {
-                <dd class="col-sm-10">
-                    Description: @prodInfo.ProductDescription<br />
-                    Price: @prodInfo.ProductPrice<br />
-                </dd>
+    <dd class="col-sm-10">
+        Description: @prodInfo.ProductDescription<br />
+        Price: @prodInfo.ProductPrice<br />
+        @UserManager.GetUserId(User)!
+    </dd>
             }
         }
         <p class="btn btn-outline-dark" style="color: white;" name="productId">
-            @Html.ActionLink("AddToCart", "AddToCart", "Cart", new { productId = Model.ProductId, userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0", quantity = 1 })
+            @Html.ActionLink("AddToCart", "AddToCart", "Cart", new { productId = Model.ProductId, userId = UserManager.GetUserId(User)!, quantity = 1 })
         </p>
     </dl>
 </div>

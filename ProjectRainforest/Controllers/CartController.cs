@@ -6,20 +6,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectRainforest.Controllers
 {
     public class CartController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
+        public static string currentUserId;
 
         private readonly ILogger<CartController> _logger;
 
-        public CartController(ILogger<CartController> logger)
+        private readonly UserManager<IdentityUser> _userManager;
+        public CartController()
         {
-            _logger = logger;
+            
         }
+        //private readonly UserManager<IdentityUser> _userManager;
+        //public CompetitionsController(UserManager<IdentityUser> userManager)
+        //{
+        //    _userManager = userManager;
+        //}
 
+        //var user = await _userManager.GetUserAsync(HttpContext.User);
 
 
         //public CartController()
@@ -37,7 +48,10 @@ namespace ProjectRainforest.Controllers
         [HttpGet]
         public IActionResult ViewCart(string userId)
         {
-            userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0";
+            //userId = _userManager.GetUserId(HttpContext.User);
+            userId = currentUserId;
+            //var user = _userManager.GetUserAsync(HttpContext.User);
+            //userId = Activity.Current?.Id;
             //Get all carts for current id as 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
@@ -72,6 +86,9 @@ namespace ProjectRainforest.Controllers
             //fix how to recieve data 
             //testing stuff delete later
             //userId = 2;
+            //userId = Activity.Current?.Id;
+            //userId = _userManager.GetUserId(HttpContext.User);
+            currentUserId = userId;
 
             if (ModelState.IsValid)
             {
