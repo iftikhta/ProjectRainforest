@@ -38,9 +38,10 @@
     </dd>
             }
         }
-        <p class="btn btn-outline-dark" style="color: white;" name="productId">
-            @Html.ActionLink("AddToCart", "AddToCart", "Cart", new { productId = Model.ProductId, userId = UserManager.GetUserId(User)!, quantity = 1 })
-        </p>
+    <p class="btn btn-outline-dark" style="color: white;" name="productId">
+        @*userId = UserManager.GetUserId(User)!*@
+        @Html.ActionLink("AddToCart", "AddToCart", "Cart", new { productId = Model.ProductId, quantity = 1 })
+    </p>
     </dl>
 </div>
 <div>

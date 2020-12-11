@@ -6,20 +6,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using ProjectRainforest.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectRainforest.Controllers
 {
+
+    [Authorize]
     public class CartController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
 
         private readonly ILogger<CartController> _logger;
 
+        private readonly UserManager<RainforestUser> _userManager;
+
         public static string uuid;
 
-        public CartController(ILogger<CartController> logger)
+        public CartController(ILogger<CartController> logger, UserManager<RainforestUser> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
 
@@ -36,22 +44,25 @@ namespace ProjectRainforest.Controllers
 
 
        // Taha
-        [HttpGet]
-        public IActionResult ViewCart(string userId)
-        {
+        //[HttpGet]
+        //public IActionResult ViewCart(string userId)
+        //{
 
-            return ViewCart(userId, 1);
-        }
+        //    return ViewCart(userId, 1);
+        //}
 
 
 
         //Taha
         //ViewCurrentCart
-        [HttpPost]
-        public ActionResult ViewCart(string userId, int test = 1)
+        [HttpGet]
+        public ActionResult ViewCart()
         {
-            userId = uuid;
-           // userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0";
+            //Get the user id
+            string userId = _userManager.GetUserId(HttpContext.User);
+
+            // userId = uuid;
+            // userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0";
             //Get all carts for current id as 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
@@ -81,12 +92,12 @@ namespace ProjectRainforest.Controllers
         //Taha
         //called when you are adding a product to your cart, expects a user_id, prodct_id and quantity
         [HttpGet]
-        public ActionResult AddToCart(string userId, int productId, int quantity)
+        public ActionResult AddToCart(int productId, int quantity)
         {
             //fix how to recieve data 
             //testing stuff delete later
             //userId = 2;
-            uuid = userId;
+            string userId = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
             {
 
@@ -115,6 +126,7 @@ namespace ProjectRainforest.Controllers
                 //return (ViewResult)new ProductController().ViewProduct(productId);
                 //return View("ViewCart"); //go here after finsihing update/adding new
                 return RedirectToAction("ViewCart");
+                //return RedirectToAction("ViewCart");
 
             }
             else
