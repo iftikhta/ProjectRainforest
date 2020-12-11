@@ -20,6 +20,8 @@ namespace ProjectRainforest.Controllers
             _logger = logger;
         }
 
+
+
         //public CartController()
         //{
 
@@ -35,6 +37,7 @@ namespace ProjectRainforest.Controllers
         [HttpGet]
         public IActionResult ViewCart(string userId)
         {
+            userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0";
             //Get all carts for current id as 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
@@ -96,7 +99,7 @@ namespace ProjectRainforest.Controllers
                 ViewBag.items = context.Products.ToList();
                 ViewBag.details = context.ProductInfos.ToList();
                 //return (ViewResult)new ProductController().ViewProduct(productId);
-                return View("ViewCart", userId); //go here after finsihing update/adding new
+                return View("ViewCart"); //go here after finsihing update/adding new
             }
             else
             {
