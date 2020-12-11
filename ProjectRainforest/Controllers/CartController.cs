@@ -15,6 +15,8 @@ namespace ProjectRainforest.Controllers
 
         private readonly ILogger<CartController> _logger;
 
+        public static string uuid;
+
         public CartController(ILogger<CartController> logger)
         {
             _logger = logger;
@@ -48,7 +50,8 @@ namespace ProjectRainforest.Controllers
         [HttpPost]
         public ActionResult ViewCart(string userId, int test = 1)
         {
-            userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0";
+            userId = uuid;
+           // userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0";
             //Get all carts for current id as 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
@@ -83,7 +86,7 @@ namespace ProjectRainforest.Controllers
             //fix how to recieve data 
             //testing stuff delete later
             //userId = 2;
-
+            uuid = userId;
             if (ModelState.IsValid)
             {
 
