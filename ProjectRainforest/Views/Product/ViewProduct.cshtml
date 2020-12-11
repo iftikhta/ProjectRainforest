@@ -33,9 +33,10 @@
                 </dd>
             }
         }
-        <p class="btn btn-outline-dark" style="color: white;" name="productId">
-            @Html.ActionLink("AddToCart", "AddToCart", "Cart", new { productId = Model.ProductId, userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0", quantity = 1 })
-        </p>
+    <p class="btn btn-outline-dark" style="color: white;" name="productId">
+      @*  @Ajax.Actio*@
+        @Html.ActionLink("AddToCart", "AddToCart", "Cart", new { productId = Model.ProductId, userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0", quantity = 1 })
+    </p>
     </dl>
 </div>
 <div>
