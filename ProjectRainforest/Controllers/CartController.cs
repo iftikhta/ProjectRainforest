@@ -6,31 +6,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectRainforest.Controllers
 {
     public class CartController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
-        public static string currentUserId;
 
         private readonly ILogger<CartController> _logger;
 
-        private readonly UserManager<IdentityUser> _userManager;
-        public CartController()
-        {
-            
-        }
-        //private readonly UserManager<IdentityUser> _userManager;
-        //public CompetitionsController(UserManager<IdentityUser> userManager)
-        //{
-        //    _userManager = userManager;
-        //}
+        public static string uuid;
 
-        //var user = await _userManager.GetUserAsync(HttpContext.User);
+        public CartController(ILogger<CartController> logger)
+        {
+            _logger = logger;
+        }
+
 
 
         //public CartController()
@@ -43,15 +34,24 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
+
         //Taha
-        //ViewCurrentCart
         [HttpGet]
         public IActionResult ViewCart(string userId)
         {
-            //userId = _userManager.GetUserId(HttpContext.User);
-            userId = currentUserId;
-            //var user = _userManager.GetUserAsync(HttpContext.User);
-            //userId = Activity.Current?.Id;
+
+            return ViewCart(userId, 1);
+        }
+
+
+
+        //Taha
+        //ViewCurrentCart
+        [HttpPost]
+        public ActionResult ViewCart(string userId, int test = 1)
+        {
+            userId = uuid;
+           // userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0";
             //Get all carts for current id as 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
@@ -67,7 +67,7 @@ namespace ProjectRainforest.Controllers
                 cartProductInfos.Append(currProductInfo);
 
                 //Some extra useful values
-                cartTotal += currProductInfo.ProductPrice;
+                cartTotal += currProductInfo.ProductPrice*c.Quantity;
             }
             
             ViewBag.cartTotal = cartTotal;
@@ -86,10 +86,7 @@ namespace ProjectRainforest.Controllers
             //fix how to recieve data 
             //testing stuff delete later
             //userId = 2;
-            //userId = Activity.Current?.Id;
-            //userId = _userManager.GetUserId(HttpContext.User);
-            currentUserId = userId;
-
+            uuid = userId;
             if (ModelState.IsValid)
             {
 
@@ -116,7 +113,9 @@ namespace ProjectRainforest.Controllers
                 ViewBag.items = context.Products.ToList();
                 ViewBag.details = context.ProductInfos.ToList();
                 //return (ViewResult)new ProductController().ViewProduct(productId);
-                return View("ViewCart"); //go here after finsihing update/adding new
+                //return View("ViewCart"); //go here after finsihing update/adding new
+                return RedirectToAction("ViewCart");
+
             }
             else
             {
