@@ -42,10 +42,12 @@ namespace ProjectRainforest.Controllers
                 ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
                 cartProducts.Append(currProduct);
                 cartProductInfos.Append(currProductInfo);
+
+                //Some extra useful values
+                cartTotal += currProductInfo.ProductPrice;
             }
 
-
-
+            ViewBag.cartTotal = cartTotal;
             ViewBag.carts = cartItems;
             ViewBag.products = cartProducts;
             ViewBag.productsInfo = cartProductInfos;
