@@ -3,53 +3,48 @@
     ViewData["Title"] = "ViewCart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-            @*ViewBag.cartTotal = cartTotal;
-            ViewBag.carts = cartItems;
-            ViewBag.products = cartProducts;
-            ViewBag.productsInfo = cartProductInfos;*@
+@*ViewBag.cartTotal = cartTotal;
+    ViewBag.carts = cartItems;
+    ViewBag.products = cartProducts;
+    ViewBag.productsInfo = cartProductInfos;*@
 
 @ViewBag.cartTotal
+
+@*@ViewBag.products[0].ProductName;*@
+
 hi
 
 
+<h1>ViewCart</h1>
 
+<div class="text-center">
+    <h1 class="display-4">Product List</h1>
 
-@*<h1>ViewCart</h1>
+    @foreach (Product prod in (List<Product>)ViewBag.products)
+    {
+        //<form asp-action="Products">
+        <div class="card " style=" padding: 18rem; margin: auto; text-align: center">
+            <div class="card-body">
+                <h5 class="card-title" value="">@prod.ProductName.ToString()</h5>
+                @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.productsInfo)
+                {
+                    @if (prodInfo.ProductId == prod.ProductId)
+                    {
+                        <div>
+                            Description: @prodInfo.ProductDescription
+                            <br />
+                            Price: @prodInfo.ProductPrice
+                            <br />
+                            <p class="btn btn-outline-dark" style="color: white;" name="productId">
+                                @Html.ActionLink("ViewProduct", "ViewProduct", new { productId = prod.ProductId })
+                            </p>
+                        </div>
 
-    <p>d
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Product)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.User)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Email)
-                </td>
-                <td>
+                    }
+                }
+            </div>
+        </div>
+        //</form>
 
-                </td>
-            </tr>
     }
-        </tbody>
-    </table>*@
+</div>

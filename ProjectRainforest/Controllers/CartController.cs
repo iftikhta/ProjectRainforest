@@ -74,8 +74,8 @@ namespace ProjectRainforest.Controllers
             foreach (Cart c in cartItems){ //fuck im good
                 Product currProduct = context.Products.Find(c.ProductId);
                 ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
-                cartProducts.Append(currProduct);
-                cartProductInfos.Append(currProductInfo);
+                cartProducts.Add(currProduct);
+                cartProductInfos.Add(currProductInfo);
 
                 //Some extra useful values
                 cartTotal += currProductInfo.ProductPrice*c.Quantity;
@@ -140,8 +140,10 @@ namespace ProjectRainforest.Controllers
         //Taha
         //For Cart Page itself
         [HttpPost]
-        public ViewResult UpdateCartItem(string userId, int productId, int quantity)
+        public ViewResult UpdateCartItem(int productId, int quantity)
         {
+            string userId = _userManager.GetUserId(HttpContext.User);
+
             //userId = 2;
             if (ModelState.IsValid)
             {
