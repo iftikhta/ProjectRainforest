@@ -140,7 +140,7 @@ namespace ProjectRainforest.Controllers
         //Taha
         //For Cart Page itself
         [HttpPost]
-        public ViewResult UpdateCartItem(int productId, int quantity)
+        public ActionResult UpdateCartItem(int productId, int quantity)
         {
             string userId = _userManager.GetUserId(HttpContext.User);
 
