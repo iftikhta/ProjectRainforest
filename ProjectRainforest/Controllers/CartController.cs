@@ -32,9 +32,20 @@ namespace ProjectRainforest.Controllers
             //Get all carts for current id as 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
+            //Get all users products and product infos listed in cart by product_id 
+            List<Product> cartProducts = new List<Product>();
+            List<ProductInfo> cartProductInfos = new List<ProductInfo>();
 
-            ViewBag.items = context.Products.ToList();
-            ViewBag.details = context.ProductInfos.ToList();
+            foreach (Cart c in cartItems){ //fuck im good
+                Product currProduct = context.Products.Find(c.ProductId);
+                ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
+                cartProducts.Append(currProduct);
+                cartProductInfos.Append(currProductInfo);
+            }
+
+            ViewBag.carts = cartItems;
+            ViewBag.products = cartProducts;
+            ViewBag.productsInfo = cartProductInfos;
             return View();
         }
 
