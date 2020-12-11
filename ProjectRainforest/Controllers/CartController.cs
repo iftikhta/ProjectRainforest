@@ -27,7 +27,7 @@ namespace ProjectRainforest.Controllers
 
         //Taha
         //ViewCurrentCart
-        public IActionResult ViewCart(int userId)
+        public IActionResult ViewCart(string userId)
         {
             //Get all carts for current id as 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
@@ -58,11 +58,11 @@ namespace ProjectRainforest.Controllers
         //Taha
         //called when you are adding a product to your cart, expects a user_id, prodct_id and quantity
         [HttpPost]
-        public ViewResult AddToCart(int userId, int productId, int quantity)
+        public ViewResult AddToCart(string userId, int productId, int quantity)
         {
             //fix how to recieve data 
             //testing stuff delete later
-            userId = 2;
+            //userId = 2;
 
             if (ModelState.IsValid)
             {
@@ -102,9 +102,9 @@ namespace ProjectRainforest.Controllers
         //Taha
         //For Cart Page itself
         [HttpPost]
-        public ViewResult UpdateCartItem(int userId, int productId, int quantity)
+        public ViewResult UpdateCartItem(string userId, int productId, int quantity)
         {
-            userId = 2;
+            //userId = 2;
             if (ModelState.IsValid)
             {
                 //check if it exists already and if so add/subtract from row
