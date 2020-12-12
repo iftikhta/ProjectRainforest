@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using ProjectRainforest.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProjectRainforest.Controllers
 {
@@ -21,9 +23,12 @@ namespace ProjectRainforest.Controllers
         //{
         //    _logger = logger;
         //}
+        private readonly UserManager<RainforestUser> _userManager;
+        public static string uuid;
 
-        public ProductController()
+        public ProductController(UserManager<RainforestUser> userManager)
         {
+            _userManager = userManager;
 
         }
 
@@ -68,14 +73,24 @@ namespace ProjectRainforest.Controllers
             if (ModelState.IsValid)
             {
                 int id = 0;
-                int i = context.Products.ToList().Count() + 1;
+                //int i = context.Products.ToList().Count() + 1;
 
+                //Product prod = context.Products.LastOrDefault<Product>();
+                int max = context.Products.Max(p => p.ProductId);
+
+                int i = max + 1;
+
+                string userId = _userManager.GetUserId(HttpContext.User);
+
+                //int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
+
+                //int vendId = (int)cVend.VendorId;
                 /* foreach (Product prod in (context.Products.ToList()))
                  {
                      i++;
                  }*/
                 Product newProduct = new Product();
-                newProduct.ProductId = i;
+                //newProduct.ProductId = i;
                 newProduct.ProductName = name;
                 newProduct.VendorId = vendorId;
                 context.Products.Add(newProduct);
