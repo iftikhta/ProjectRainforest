@@ -29,8 +29,7 @@ namespace ProjectRainforest.Controllers
             //View Orders page that lets you view all order details etc
 
 
-        //get access to addres etc etc
-        //The view page
+        //Use on Cart Page to checkout
         public async Task<IActionResult> ConfirmOrder()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -72,9 +71,7 @@ namespace ProjectRainforest.Controllers
         }
 
 
-        //Add adress to the order table and then pass it here as well later
-        //remove cart and create order
-        //post
+        //Used on Confirm Order Page to complete submission
         [HttpPost]
         public IActionResult PlaceOrder() //make async if necessary
         {
@@ -133,6 +130,7 @@ namespace ProjectRainforest.Controllers
 
 
 
+        //View a summary of the orders
         public IActionResult ViewOrders()
         {
             string userId = _userManager.GetUserId(HttpContext.User);
@@ -145,7 +143,7 @@ namespace ProjectRainforest.Controllers
         }
 
 
-
+        //View a detail of a specific order
         public IActionResult ViewOrderDetails(int orderId)
         {
             //can create a check if you are not the matching user
