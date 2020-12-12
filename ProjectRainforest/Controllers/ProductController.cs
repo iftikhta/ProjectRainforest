@@ -68,38 +68,30 @@ namespace ProjectRainforest.Controllers
 
         //Tommas
         [HttpPost]
-        public ViewResult AddNewProduct(ProductInfo productResponse, string name, int vendorId)
+        public ViewResult AddNewProduct(ProductInfo productResponse, string name)
         {
             if (ModelState.IsValid)
             {
-                int id = 0;
-                //int i = context.Products.ToList().Count() + 1;
 
-                //Product prod = context.Products.LastOrDefault<Product>();
-                int max = context.Products.Max(p => p.ProductId);
 
-                int i = max + 1;
-
+                //Getting user id and vendor id of current user
                 string userId = _userManager.GetUserId(HttpContext.User);
 
-                //int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
+                int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
 
-                //int vendId = (int)cVend.VendorId;
-                /* foreach (Product prod in (context.Products.ToList()))
-                 {
-                     i++;
-                 }*/
+                //Creating new product and info to add to db
                 Product newProduct = new Product();
-                //newProduct.ProductId = i;
                 newProduct.ProductName = name;
-                newProduct.VendorId = vendorId;
+                newProduct.VendorId = vendId;
                 context.Products.Add(newProduct);
-                //Product x = context.Products.Find(newProduct);
                 context.SaveChanges();
+                int max = context.Products.Max(p => p.ProductId);
                 productResponse.Product = newProduct;
-                productResponse.ProductId = i;
+                productResponse.ProductId = max;
+                productResponse.DateAdded = DateTime.Now;
                 context.ProductInfos.Add(productResponse);
                 context.SaveChanges();
+                //Passing data to ViewAllProductsPage
                 ViewBag.items = context.Products.ToList();
                 ViewBag.details = context.ProductInfos.ToList();
                 return View("ViewAllProducts");
@@ -107,7 +99,7 @@ namespace ProjectRainforest.Controllers
             else
             {
                 // there is a validation error
-                return View("ViewAllProducts");
+                return View("AddNewProduct");
             }
         }
 

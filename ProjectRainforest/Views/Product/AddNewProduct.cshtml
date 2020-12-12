@@ -18,10 +18,6 @@
                 <input class="form-control" name="name" />
             </div>
             <div class="form-group">
-                <label>Vendor Id:</label>
-                <input class="form-control" name="vendorId" />
-            </div>
-            <div class="form-group">
                 <label asp-for="ProductDescription" class="control-label"></label>
                 <input asp-for="ProductDescription" class="form-control" />
                 <span asp-validation-for="ProductDescription" class="text-danger"></span>
@@ -35,21 +31,6 @@
                 <label asp-for="ProductImg" class="control-label"></label>
                 <input asp-for="ProductImg" class="form-control" />
                 <span asp-validation-for="ProductImg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductRating" class="control-label"></label>
-                <input asp-for="ProductRating" class="form-control" />
-                <span asp-validation-for="ProductRating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateAdded" class="control-label"></label>
-                <input asp-for="DateAdded" class="form-control" />
-                <span asp-validation-for="DateAdded" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RatingCount" class="control-label"></label>
-                <input asp-for="RatingCount" class="form-control" />
-                <span asp-validation-for="RatingCount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
