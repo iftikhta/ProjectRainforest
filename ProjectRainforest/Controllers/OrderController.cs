@@ -137,7 +137,7 @@ namespace ProjectRainforest.Controllers
 
 
 
-        //View a summary of the orders
+        //View a summary of the orders, keep it simple, fill any null data
         public IActionResult ViewOrders()
         {
             string userId = _userManager.GetUserId(HttpContext.User);
