@@ -31,9 +31,14 @@ namespace ProjectRainforest.Controllers
 
         //get access to addres etc etc
         //The view page
-        public async Task<IActionResult> ConfirmOrderAsync()
+        public async Task<IActionResult> ConfirmOrder()
         {
-            string userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            string userId = user.Id;
+            string userAddress = user.Address;
+
+            //Jordan create whatever contract will give me access to users address field
+            //string userAddress = _userManager.GetUserAddress(HttpContext.User);
 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
@@ -57,7 +62,7 @@ namespace ProjectRainforest.Controllers
             double withTax = await TaxMan.CalculateTaxAsync(cartTotal).ConfigureAwait(false);
 
             ///End Tax test
-
+            ViewBag.address = userAddress;
             ViewBag.cartTotalWithTax = withTax;
             ViewBag.cartTotal = cartTotal;
             ViewBag.carts = cartItems;
@@ -66,10 +71,45 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
+
+        //Add adress to the order table and then pass it here as well later
+        //remove and create cart
         //post
         [HttpPost]
-        public IActionResult ConfirmOrder(string x)
+        public async Task<IActionResult> PlaceOrder(double total)
         {
+            string userId = _userManager.GetUserId(HttpContext.User);
+       
+
+            //Store all order contents in seperate table
+            List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
+
+            float cartTotal = 0;
+            foreach (Cart c in cartItems)
+            { 
+                Product currProduct = context.Products.Find(c.ProductId);
+                ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
+
+                //Create Cart Content
+
+
+
+
+                //End Create Cart Content
+            
+                cartTotal += currProductInfo.ProductPrice * c.Quantity;
+            }
+          
+
+
+            //Create an order based off currently available information
+            Order newOrder = new Order();
+            newOrder.UserId = userId;
+            newOrder.DatePlaced = DateTimeOffset.Now;
+            newOrder.OrderStatus = "Processing";
+            newOrder.Total = cartTotal;
+
+
             return View();
         }
 

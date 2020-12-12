@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "ViewCart";
+    ViewData["Title"] = "View Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*ViewBag.cartTotal = cartTotal;
@@ -23,7 +23,7 @@
             @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.productsInfo)
             {
                 @if (prodInfo.ProductId == prod.ProductId)
-                { 
+                {
                     <p>Description: @prodInfo.ProductDescription</p>
                     <p>Price: @prodInfo.ProductPrice</p>
                     <form method="post" asp-controller="Cart" asp-action="UpdateCartItem">
@@ -35,7 +35,6 @@
                                 <div class="row">
                                     <select class="form-control ml-2" id="sel1" name="quantity" style="width: 100px;">
                                         <option selected>@cart.Quantity</option>
-                                        <option>0</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
