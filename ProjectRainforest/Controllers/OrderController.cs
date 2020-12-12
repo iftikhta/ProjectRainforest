@@ -73,10 +73,10 @@ namespace ProjectRainforest.Controllers
 
 
         //Add adress to the order table and then pass it here as well later
-        //remove and create cart
+        //remove cart and create order
         //post
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(double total)
+        public IActionResult PlaceOrder() //make async if necessary
         {
             string userId = _userManager.GetUserId(HttpContext.User);
        
@@ -84,31 +84,49 @@ namespace ProjectRainforest.Controllers
             //Store all order contents in seperate table
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
-            float cartTotal = 0;
-            foreach (Cart c in cartItems)
-            { 
-                Product currProduct = context.Products.Find(c.ProductId);
-                ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
-
-                //Create Cart Content
-
-
-
-
-                //End Create Cart Content
-            
-                cartTotal += currProductInfo.ProductPrice * c.Quantity;
-            }
-          
-
 
             //Create an order based off currently available information
             Order newOrder = new Order();
             newOrder.UserId = userId;
             newOrder.DatePlaced = DateTimeOffset.Now;
             newOrder.OrderStatus = "Processing";
-            newOrder.Total = cartTotal;
+            //put into database before generating order contents
+            context.Order.Add(newOrder);
+            context.SaveChanges();
 
+            //haveto get the generated id out 
+            Order LastOrder = context.Order.Where(x => x.UserId.Equals(userId)).FirstOrDefault();
+
+            float cartTotal = 0;
+            foreach (Cart c in cartItems)
+            { 
+                Product currProduct = context.Products.Find(c.ProductId);
+                ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
+
+                //Create order Content
+
+                OrderContents currOrderContent = new OrderContents();
+                currOrderContent.OrderId = LastOrder.OrderId;
+                currOrderContent.ProductId = c.ProductId;
+                currOrderContent.Quantity = c.Quantity;
+                currOrderContent.PricePaid = currProductInfo.ProductPrice;
+
+                context.OrderContents.Add(currOrderContent);
+                context.SaveChanges();
+
+                //End Create order Content
+       
+                cartTotal += currProductInfo.ProductPrice * c.Quantity;
+
+                //remove from cart table
+
+                context.Carts.Remove(c); //if it wont work then use some kinda 
+                context.SaveChanges();
+            }
+
+
+            //set this after getting calculations
+            newOrder.Total = cartTotal;
 
             return View();
         }
@@ -117,7 +135,13 @@ namespace ProjectRainforest.Controllers
 
         public IActionResult ViewOrders()
         {
-            return View();
+            string userId = _userManager.GetUserId(HttpContext.User);
+            List<Order> allOrders = context.Order.Where(x => x.UserId.Equals(userId)).ToList();
+            //List<OrderContents> allOrderContents = new List<OrderContents>();
+
+
+            //pass into viewbags so these can be displayed nicely on the front end
+            return View(allOrders);
         }
 
 
