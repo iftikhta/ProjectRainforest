@@ -33,7 +33,10 @@ namespace ProjectRainforest.Controllers
         //The view page
         public async Task<IActionResult> ConfirmOrder()
         {
-            string userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            string userId = user.Id;
+            string userAddress = user.Address;
+
             //Jordan create whatever contract will give me access to users address field
             //string userAddress = _userManager.GetUserAddress(HttpContext.User);
 
@@ -59,7 +62,7 @@ namespace ProjectRainforest.Controllers
             double withTax = await TaxMan.CalculateTaxAsync(cartTotal).ConfigureAwait(false);
 
             ///End Tax test
-
+            ViewBag.address = userAddress;
             ViewBag.cartTotalWithTax = withTax;
             ViewBag.cartTotal = cartTotal;
             ViewBag.carts = cartItems;
