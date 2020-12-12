@@ -72,7 +72,7 @@ namespace ProjectRainforest.Controllers
 
 
         //Used on Confirm Order Page to complete submission
-        [HttpPost]
+       
         public IActionResult PlaceOrder() //make async if necessary
         {
             string userId = _userManager.GetUserId(HttpContext.User);
