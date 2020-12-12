@@ -91,9 +91,11 @@ namespace ProjectRainforest.Controllers
 
         //Taha
         //called when you are adding a product to your cart, expects a user_id, prodct_id and quantity
-        [HttpGet]
-        public ActionResult AddToCart(int productId, int quantity)
+        [HttpPost]
+        public ActionResult AddToCart(int productId, int q)
         {
+            //int q = Convert.ToInt32(quantity);
+            //q = Convert.ToInt32(DropDownList1.SelectedValue)
             //fix how to recieve data 
             //testing stuff delete later
             //userId = 2;
@@ -105,7 +107,7 @@ namespace ProjectRainforest.Controllers
                 var existingCart = context.Carts.Find(userId, productId);
                 if (existingCart != null)
                 {
-                    existingCart.Quantity += quantity;
+                    existingCart.Quantity += q;
                     context.Entry(existingCart).State = EntityState.Modified;
                 }
                 else
@@ -114,7 +116,7 @@ namespace ProjectRainforest.Controllers
                     Cart newCartRow = new Cart();
                     newCartRow.UserId = userId;
                     newCartRow.ProductId = productId;
-                    newCartRow.Quantity = quantity;
+                    newCartRow.Quantity = q;
 
                     context.Carts.Add(newCartRow);
                 }
