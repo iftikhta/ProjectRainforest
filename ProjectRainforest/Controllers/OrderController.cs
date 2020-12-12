@@ -129,7 +129,8 @@ namespace ProjectRainforest.Controllers
             context.SaveChanges();
 
 
-            return View("ViewOrders");
+            //return View("ViewOrders");
+            return RedirectToAction("ViewOrders");
         }
 
 
