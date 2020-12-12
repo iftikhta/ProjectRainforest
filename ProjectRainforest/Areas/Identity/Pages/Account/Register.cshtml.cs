@@ -116,6 +116,7 @@ namespace ProjectRainforest.Areas.Identity.Pages.Account
                     if (Input.RegisterAsVendor)
                     {
                         var roleResult = await _userManager.AddToRoleAsync(user, "Vendor");
+                        returnUrl = "/Vendor/SignUp";
                     }
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
