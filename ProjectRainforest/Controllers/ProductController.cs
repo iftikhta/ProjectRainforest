@@ -35,8 +35,8 @@ namespace ProjectRainforest.Controllers
         //Tommas
         public IActionResult ViewAllProducts()
         {
-            ViewBag.items = context.Product.ToList();
-            ViewBag.details = context.ProductInfo.ToList();
+            ViewBag.items = context.Products.ToList();
+            ViewBag.details = context.ProductInfos.ToList();
             return View();
         }
 
@@ -57,10 +57,10 @@ namespace ProjectRainforest.Controllers
             //int id = int.Parse(RouteData.Values["id"].ToString());
             int id = productID;
 
-            Product foundProduct = context.Product.FirstOrDefault(x => x.ProductId.Equals(id));
-            ProductInfo foundProductInfo = context.ProductInfo.FirstOrDefault(x => x.ProductId.Equals(id));
+            Product foundProduct = context.Products.FirstOrDefault(x => x.ProductId.Equals(id));
+            ProductInfo foundProductInfo = context.ProductInfos.FirstOrDefault(x => x.ProductId.Equals(id));
             //ViewData.Model = foundProduct;
-            ViewBag.details = context.ProductInfo.ToList();
+            ViewBag.details = context.ProductInfos.ToList();
             return View(foundProduct);
         }
 
@@ -93,12 +93,12 @@ namespace ProjectRainforest.Controllers
                 //newProduct.ProductId = i;
                 newProduct.ProductName = name;
                 newProduct.VendorId = vendorId;
-                context.Product.Add(newProduct);
+                context.Products.Add(newProduct);
                 //Product x = context.Products.Find(newProduct);
                 context.SaveChanges();
                 productResponse.Product = newProduct;
                 productResponse.ProductId = i;
-                context.ProductInfo.Add(productResponse);
+                context.ProductInfos.Add(productResponse);
                 context.SaveChanges();
                 ViewBag.items = context.Products.ToList();
                 ViewBag.details = context.ProductInfos.ToList();

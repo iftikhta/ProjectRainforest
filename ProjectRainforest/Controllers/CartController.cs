@@ -111,7 +111,7 @@ namespace ProjectRainforest.Controllers
             {
 
                 //check if it exists already and if so add/subtract from row
-                var existingCart = context.Cart.Find(userId, productId);
+                var existingCart = context.Carts.Find(userId, productId);
                 if (existingCart != null)
                 {
                     existingCart.Quantity += q;
@@ -125,7 +125,7 @@ namespace ProjectRainforest.Controllers
                     newCartRow.ProductId = productId;
                     newCartRow.Quantity = q;
 
-                    context.Cart.Add(newCartRow);
+                    context.Carts.Add(newCartRow);
                 }
           
                 context.SaveChanges();
