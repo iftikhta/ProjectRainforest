@@ -145,5 +145,18 @@ namespace ProjectRainforest.Controllers
         }
 
 
+
+        public IActionResult ViewOrderDetails(int orderId)
+        {
+            //can create a check if you are not the matching user
+            //List<Order> allOrders = context.Order.Where(x => x.UserId.Equals(userId)).ToList();
+            List<OrderContents> orderContentDetails = context.OrderContents.Where(x => x.OrderId.Equals(orderId)).ToList();
+
+
+            //pass into viewbags so these can be displayed nicely on the front end
+            return View(orderContentDetails);
+        }
+
+
     }
 }
