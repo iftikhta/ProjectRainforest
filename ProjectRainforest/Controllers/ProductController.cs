@@ -61,6 +61,7 @@ namespace ProjectRainforest.Controllers
             ProductInfo foundProductInfo = context.ProductInfos.FirstOrDefault(x => x.ProductId.Equals(id));
             //ViewData.Model = foundProduct;
             ViewBag.details = context.ProductInfos.ToList();
+            ViewBag.vendor = context.Vendor.FirstOrDefault(x => x.VendorId.Equals(foundProduct.VendorId));
             return View(foundProduct);
         }
 
