@@ -24,9 +24,35 @@ namespace ProjectRainforest.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.items = context.Products.ToList();
-            ViewBag.details = context.ProductInfos.ToList();
-            return View();
+
+            Product foundProduct = context.Products.FirstOrDefault();
+            ProductInfo foundProductInfo = context.ProductInfos.FirstOrDefault();
+            List<Product> allP = context.Products.ToList();
+            List<ProductInfo> allD = context.ProductInfos.ToList();
+            if (allP.Count >= 3)
+            {
+                if (allP[1] != null)
+                {
+                    ViewBag.item1 = allP[0];
+                    ViewBag.detail1 = allD[0];
+                }
+                if (allP[1] != null)
+                {
+                    ViewBag.item2 = allP[1];
+                    ViewBag.detail2 = allD[1];
+                }
+                if (allP[2] != null)
+                {
+                    ViewBag.item3 = allP[2];
+                    ViewBag.detail3 = allD[2];
+                }
+                return View();
+
+            }
+
+            return View("NoProducts");
+
+                    
         }
 
         [Authorize(Roles = "Vendor")] //Example of how to make a page "Vendor only"
