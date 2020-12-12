@@ -125,7 +125,7 @@ namespace ProjectRainforest.Controllers
             //set this after getting calculations
             newOrder.Total = cartTotal;
 
-            return View();
+            return View("ViewOrders");
         }
 
 
