@@ -69,11 +69,44 @@ namespace ProjectRainforest.Controllers
         }
 
 
+        //Add adress to the order table and then pass it here as well later
         //remove and create cart
         //post
         [HttpPost]
-        public IActionResult ConfirmOrder(string x)
+        public async Task<IActionResult> PlaceOrder(double total)
         {
+            string userId = _userManager.GetUserId(HttpContext.User);
+       
+
+            //Store all order contents in seperate table
+            List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
+
+            float cartTotal = 0;
+            foreach (Cart c in cartItems)
+            { 
+                Product currProduct = context.Products.Find(c.ProductId);
+                ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
+
+                //Create Cart Content
+
+
+
+
+                //End Create Cart Content
+            
+                cartTotal += currProductInfo.ProductPrice * c.Quantity;
+            }
+          
+
+
+            //Create an order based off currently available information
+            Order newOrder = new Order();
+            newOrder.UserId = userId;
+            newOrder.DatePlaced = DateTimeOffset.Now;
+            newOrder.OrderStatus = "Processing";
+            newOrder.Total = cartTotal;
+
+
             return View();
         }
 
