@@ -6,6 +6,7 @@ using ProjectRainforest.Areas.Identity.Data;
 using ProjectRainforest.Models;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaxServiceReference;
@@ -135,15 +136,13 @@ namespace ProjectRainforest.Controllers
 
 
 
+
         //View a summary of the orders
         public IActionResult ViewOrders()
         {
             string userId = _userManager.GetUserId(HttpContext.User);
             List<Order> allOrders = context.Order.Where(x => x.UserId.Equals(userId)).ToList();
-            //List<OrderContents> allOrderContents = new List<OrderContents>();
-        
 
-            //pass into viewbags so these can be displayed nicely on the front end
             return View(allOrders);
         }
 
@@ -151,15 +150,29 @@ namespace ProjectRainforest.Controllers
         //View a detail of a specific order
         [HttpGet]
         [Route("Order/ViewOrderDetails/{orderId:int}")]
-        public IActionResult ViewOrderDetails(int orderId)
+        public async Task<IActionResult> ViewOrderDetails(int orderId)
         {
-            //can create a check if you are not the matching user
-            //List<Order> allOrders = context.Order.Where(x => x.UserId.Equals(userId)).ToList();
+            
             List<OrderContents> orderContentDetails = context.OrderContents.Where(x => x.OrderId.Equals(orderId)).ToList();
+            List<Product> orderProducts = new List<Product>(); //context.Products.Where(x=> x.ProductId.Equals)
 
 
-            //pass into viewbags so these can be displayed nicely on the front end
-            return View(orderContentDetails);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            string userAddress = user.Address;
+
+            foreach (OrderContents o in orderContentDetails)
+            {
+                orderProducts.Add(context.Products.Find(o.ProductId));
+            }
+
+            //Get price paid and quantity from ViewBag.Orders
+            //Get product name from ViewBag.Products
+            //Get delivery address from Viewbag.address
+            ViewBag.Orders = orderContentDetails;
+            ViewBag.Products = orderProducts;
+            ViewBag.Address = userAddress;
+
+            return View();
         }
 
 
