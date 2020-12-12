@@ -259,26 +259,26 @@ namespace ProjectRainforest.Models
 
             modelBuilder.Entity<OrderContents>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.OrderId, e.ProductId });
 
                 entity.ToTable("order_contents");
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
-                entity.Property(e => e.PricePaid).HasColumnName("price_paid");
-
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.PricePaid).HasColumnName("price_paid");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany()
+                    .WithMany(p => p.OrderContents)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__order_con__order__6C190EBB");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.OrderContents)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__order_con__produ__6D0D32F4");

@@ -29,8 +29,7 @@ namespace ProjectRainforest.Controllers
             //View Orders page that lets you view all order details etc
 
 
-        //get access to addres etc etc
-        //The view page
+        //Use on Cart Page to checkout
         public async Task<IActionResult> ConfirmOrder()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -72,10 +71,8 @@ namespace ProjectRainforest.Controllers
         }
 
 
-        //Add adress to the order table and then pass it here as well later
-        //remove cart and create order
-        //post
-        [HttpPost]
+        //Used on Confirm Order Page to complete submission
+       
         public IActionResult PlaceOrder() //make async if necessary
         {
             string userId = _userManager.GetUserId(HttpContext.User);
@@ -128,20 +125,34 @@ namespace ProjectRainforest.Controllers
             //set this after getting calculations
             newOrder.Total = cartTotal;
 
-            return View();
+            return View("ViewOrders");
         }
 
 
 
+        //View a summary of the orders
         public IActionResult ViewOrders()
         {
             string userId = _userManager.GetUserId(HttpContext.User);
             List<Order> allOrders = context.Order.Where(x => x.UserId.Equals(userId)).ToList();
             //List<OrderContents> allOrderContents = new List<OrderContents>();
-
+        
 
             //pass into viewbags so these can be displayed nicely on the front end
             return View(allOrders);
+        }
+
+
+        //View a detail of a specific order
+        public IActionResult ViewOrderDetails(int orderId)
+        {
+            //can create a check if you are not the matching user
+            //List<Order> allOrders = context.Order.Where(x => x.UserId.Equals(userId)).ToList();
+            List<OrderContents> orderContentDetails = context.OrderContents.Where(x => x.OrderId.Equals(orderId)).ToList();
+
+
+            //pass into viewbags so these can be displayed nicely on the front end
+            return View(orderContentDetails);
         }
 
 
