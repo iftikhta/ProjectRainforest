@@ -138,7 +138,7 @@ namespace ProjectRainforest.Controllers
             string userId = _userManager.GetUserId(HttpContext.User);
             List<Order> allOrders = context.Order.Where(x => x.UserId.Equals(userId)).ToList();
             //List<OrderContents> allOrderContents = new List<OrderContents>();
-
+        
 
             //pass into viewbags so these can be displayed nicely on the front end
             return View(allOrders);
