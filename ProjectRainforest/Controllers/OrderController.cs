@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ProjectRainforest.Areas.Identity.Data;
 using ProjectRainforest.Models;
@@ -92,7 +93,7 @@ namespace ProjectRainforest.Controllers
             context.SaveChanges();
 
             //haveto get the generated id out 
-            Order LastOrder = context.Order.Where(x => x.UserId.Equals(userId)).FirstOrDefault();
+            Order LastOrder = context.Order.Where(x => x.UserId.Equals(userId)).ToList().LastOrDefault();
 
             float cartTotal = 0;
             foreach (Cart c in cartItems)
@@ -123,7 +124,10 @@ namespace ProjectRainforest.Controllers
 
 
             //set this after getting calculations
-            newOrder.Total = cartTotal;
+            LastOrder.Total = cartTotal;
+            context.Entry(LastOrder).State = EntityState.Modified;
+            context.SaveChanges();
+
 
             return View("ViewOrders");
         }
