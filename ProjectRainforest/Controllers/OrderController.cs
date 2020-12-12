@@ -6,6 +6,7 @@ using ProjectRainforest.Areas.Identity.Data;
 using ProjectRainforest.Models;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaxServiceReference;
@@ -135,6 +136,7 @@ namespace ProjectRainforest.Controllers
 
 
 
+
         //View a summary of the orders
         public IActionResult ViewOrders()
         {
@@ -153,13 +155,21 @@ namespace ProjectRainforest.Controllers
         [Route("Order/ViewOrderDetails/{orderId:int}")]
         public IActionResult ViewOrderDetails(int orderId)
         {
-            //can create a check if you are not the matching user
-            //List<Order> allOrders = context.Order.Where(x => x.UserId.Equals(userId)).ToList();
+            
             List<OrderContents> orderContentDetails = context.OrderContents.Where(x => x.OrderId.Equals(orderId)).ToList();
+            List<Product> orderProducts = new List<Product>(); //context.Products.Where(x=> x.ProductId.Equals)
 
+            foreach(OrderContents o in orderContentDetails)
+            {
+                orderProducts.Add(context.Products.Find(o.ProductId));
+            }
 
-            //pass into viewbags so these can be displayed nicely on the front end
-            return View(orderContentDetails);
+            //Get price paid and quantity from ViewBag.Orders
+            //Get product name from ViewBag.Products
+            ViewBag.Orders = orderContentDetails;
+            ViewBag.Products = orderProducts;
+
+            return View();
         }
 
 
