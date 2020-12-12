@@ -22,12 +22,12 @@ namespace ProjectRainforest.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderContents> OrderContents { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductInfo> ProductInfos { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductInfo> ProductInfo { get; set; }
         public virtual DbSet<Review> Review { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Vendor> Vendor { get; set; }
@@ -259,26 +259,26 @@ namespace ProjectRainforest.Models
 
             modelBuilder.Entity<OrderContents>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.OrderId, e.ProductId });
 
                 entity.ToTable("order_contents");
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
-                entity.Property(e => e.PricePaid).HasColumnName("price_paid");
-
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.PricePaid).HasColumnName("price_paid");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany()
+                    .WithMany(p => p.OrderContents)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__order_con__order__6C190EBB");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.OrderContents)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__order_con__produ__6D0D32F4");

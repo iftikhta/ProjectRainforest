@@ -8,6 +8,7 @@ namespace ProjectRainforest.Models
         public Product()
         {
             Cart = new HashSet<Cart>();
+            OrderContents = new HashSet<OrderContents>();
         }
 
         public int ProductId { get; set; }
@@ -18,5 +19,6 @@ namespace ProjectRainforest.Models
         public virtual Inventory Inventory { get; set; }
         public virtual ProductInfo ProductInfo { get; set; }
         public virtual ICollection<Cart> Cart { get; set; }
+        public virtual ICollection<OrderContents> OrderContents { get; set; }
     }
 }
