@@ -150,21 +150,27 @@ namespace ProjectRainforest.Controllers
         //View a detail of a specific order
         [HttpGet]
         [Route("Order/ViewOrderDetails/{orderId:int}")]
-        public IActionResult ViewOrderDetails(int orderId)
+        public async Task<IActionResult> ViewOrderDetails(int orderId)
         {
             
             List<OrderContents> orderContentDetails = context.OrderContents.Where(x => x.OrderId.Equals(orderId)).ToList();
             List<Product> orderProducts = new List<Product>(); //context.Products.Where(x=> x.ProductId.Equals)
 
-            foreach(OrderContents o in orderContentDetails)
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            string userAddress = user.Address;
+
+            foreach (OrderContents o in orderContentDetails)
             {
                 orderProducts.Add(context.Products.Find(o.ProductId));
             }
 
             //Get price paid and quantity from ViewBag.Orders
             //Get product name from ViewBag.Products
+            //Get delivery address from Viewbag.address
             ViewBag.Orders = orderContentDetails;
             ViewBag.Products = orderProducts;
+            ViewBag.Address = userAddress;
 
             return View();
         }
