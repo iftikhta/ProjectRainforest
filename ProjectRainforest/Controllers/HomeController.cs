@@ -24,6 +24,8 @@ namespace ProjectRainforest.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.items = context.Products.ToList();
+            ViewBag.details = context.ProductInfos.ToList();
             return View();
         }
 
