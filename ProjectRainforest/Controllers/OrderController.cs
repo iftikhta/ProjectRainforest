@@ -31,9 +31,11 @@ namespace ProjectRainforest.Controllers
 
         //get access to addres etc etc
         //The view page
-        public async Task<IActionResult> ConfirmOrderAsync()
+        public async Task<IActionResult> ConfirmOrder()
         {
             string userId = _userManager.GetUserId(HttpContext.User);
+            //Jordan create whatever contract will give me access to users address field
+            //string userAddress = _userManager.GetUserAddress(HttpContext.User);
 
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
@@ -66,6 +68,8 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
+
+        //remove and create cart
         //post
         [HttpPost]
         public IActionResult ConfirmOrder(string x)
