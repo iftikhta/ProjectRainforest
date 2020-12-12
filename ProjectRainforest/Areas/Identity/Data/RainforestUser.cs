@@ -29,5 +29,9 @@ namespace ProjectRainforest.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "varchar(50)")]
         public string CardNumber { get; set; }
+
+        [PersonalData]
+        [Column(TypeName = "int")]
+        public int? VendorID { get; set; }
     }
 }

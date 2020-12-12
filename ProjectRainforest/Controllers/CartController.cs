@@ -121,7 +121,7 @@ namespace ProjectRainforest.Controllers
                 {
                     //Create a new cart row if one doesnt exist already
                     Cart newCartRow = new Cart();
-                    newCartRow.UserId = userId;
+                    newCartRow.UserId = userId.ToString();
                     newCartRow.ProductId = productId;
                     newCartRow.Quantity = q;
 
