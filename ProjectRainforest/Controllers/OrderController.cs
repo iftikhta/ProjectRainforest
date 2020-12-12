@@ -82,7 +82,10 @@ namespace ProjectRainforest.Controllers
 
             //Store all order contents in seperate table
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
-
+            if (cartItems.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             //Create an order based off currently available information
             Order newOrder = new Order();
@@ -133,8 +136,6 @@ namespace ProjectRainforest.Controllers
             //return View("ViewOrders");
             return RedirectToAction("ViewOrders");
         }
-
-
 
 
         //View a summary of the orders, keep it simple, fill any null data
