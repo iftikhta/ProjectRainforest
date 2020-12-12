@@ -150,7 +150,7 @@ namespace ProjectRainforest.Controllers
 
         //View a detail of a specific order
         [HttpGet]
-        [Route("Default/ViewOrderDetails/{orderId:int}")]
+        [Route("Order/ViewOrderDetails/{orderId:int}")]
         public IActionResult ViewOrderDetails(int orderId)
         {
             //can create a check if you are not the matching user
