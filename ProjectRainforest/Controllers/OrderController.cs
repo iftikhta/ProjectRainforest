@@ -160,17 +160,29 @@ namespace ProjectRainforest.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             string userAddress = user.Address;
 
+
+            double subtotal = 0;
             foreach (OrderContents o in orderContentDetails)
             {
                 orderProducts.Add(context.Products.Find(o.ProductId));
+                subtotal += o.PricePaid * o.Quantity;
             }
+
+            TaxServiceClient TaxMan = new TaxServiceClient();
+            double withTax = await TaxMan.CalculateTaxAsync(subtotal).ConfigureAwait(false);
+
 
             //Get price paid and quantity from ViewBag.Orders
             //Get product name from ViewBag.Products
             //Get delivery address from Viewbag.address
+
+            //Get subtotal
+            //get post tax
             ViewBag.Orders = orderContentDetails;
             ViewBag.Products = orderProducts;
             ViewBag.Address = userAddress;
+            ViewBag.Subtotal = subtotal;
+            ViewBag.TotalWithTax = withTax;
 
             return View();
         }
