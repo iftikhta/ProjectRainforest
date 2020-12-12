@@ -22,12 +22,12 @@ namespace ProjectRainforest.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Cart> Cart { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderContents> OrderContents { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<ProductInfo> ProductInfo { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductInfo> ProductInfos { get; set; }
         public virtual DbSet<Review> Review { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Vendor> Vendor { get; set; }
