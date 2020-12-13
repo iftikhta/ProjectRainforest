@@ -8,11 +8,6 @@
 <h1>ViewOrderDetails</h1>
 <a class="btn-link" asp-area="" asp-controller="Order" asp-action="ViewOrders">Back To Orders</a>
 <p>@ViewBag.Address</p>
-@*ViewBag.Orders = orderContentDetails;
-    ViewBag.Products = orderProducts;
-    ViewBag.Address = userAddress;
-    ViewBag.Subtotal = subtotal;
-    ViewBag.TotalWithTax = withTax;*@
 
 @*@foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
     {*@
@@ -39,49 +34,3 @@
 <h4>total with tax: @ViewBag.TotalWithTax$</h4>
 <h4>Shipping Address: @ViewBag.address</h4>
 
-
-@*<p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.PricePaid)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Order)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Product)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PricePaid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Order.OrderStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>*@
