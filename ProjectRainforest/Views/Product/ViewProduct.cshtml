@@ -1,4 +1,5 @@
-﻿@model ProjectRainforest.Models.Product
+﻿<!--Tommas-->
+@model ProjectRainforest.Models.Product
 
 @{
     ViewData["Title"] = "ViewProduct";
@@ -15,7 +16,7 @@
             @Html.DisplayFor(model => model.ProductName)
         </h4>
         <h5 class="col-sm-10">
-            Vendor: @ViewBag.vendor.VendorTitle <!--@Html.DisplayFor(model => model.VendorId)-->
+            Vendor: @ViewBag.vendor.VendorTitle
         </h5>
         <hr />
         @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.details)

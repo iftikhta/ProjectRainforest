@@ -17,12 +17,12 @@ namespace ProjectRainforest.Controllers
     public class ProductController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
-
         private readonly UserManager<RainforestUser> _userManager;
         public static string uuid;
 
         public ProductController(UserManager<RainforestUser> userManager)
         {
+            //Required to get current user
             _userManager = userManager;
 
         }
@@ -30,6 +30,8 @@ namespace ProjectRainforest.Controllers
         //Tommas
         public IActionResult ViewAllProducts()
         {
+            //Passing data to ViewAllProductsPage
+            //required to make products visible on ViewAllProducts Page
             ViewBag.items = context.Products.ToList();
             ViewBag.details = context.ProductInfos.ToList();
             return View();
@@ -76,13 +78,14 @@ namespace ProjectRainforest.Controllers
             if (ModelState.IsValid)
             {
 
-
                 //Getting user id and vendor id of current user
+                //required to make sure product has correct vendor id
                 string userId = _userManager.GetUserId(HttpContext.User);
 
                 int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
 
                 //Creating new product and info to add to db
+                //required to add product so it is visible to other users
                 Product newProduct = new Product();
                 newProduct.ProductName = name;
                 newProduct.VendorId = vendId;
@@ -95,6 +98,7 @@ namespace ProjectRainforest.Controllers
                 context.ProductInfos.Add(productResponse);
                 context.SaveChanges();
                 //Passing data to ViewAllProductsPage
+                //required to make products visible on ViewAllProducts Page
                 ViewBag.items = context.Products.ToList();
                 ViewBag.details = context.ProductInfos.ToList();
                 return View("ViewAllProducts");

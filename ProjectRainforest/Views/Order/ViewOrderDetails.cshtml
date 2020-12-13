@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ProjectRainforest.Models.OrderContents>
+﻿<!--Tommas-->
+@model IEnumerable<ProjectRainforest.Models.OrderContents>
 
 @{
     ViewData["Title"] = "ViewOrderDetails";
@@ -9,9 +10,7 @@
 <a class="btn-link" asp-area="" asp-controller="Order" asp-action="ViewOrders">Back To Orders</a>
 <p>@ViewBag.Address</p>
 
-@*@foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
-    {*@
-<!--<h5 class="card-title" value="">ViewBag.Orders.OrderId.ToString()</h5>-->
+
 @foreach (Product prod in (List<Product>)ViewBag.Products)
 {
     @foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
@@ -29,7 +28,7 @@
 
     }
 }
-@* } *@
+
 <h4>total: @ViewBag.Subtotal$</h4>
 <h4>total with tax: @ViewBag.TotalWithTax$</h4>
 <h4>Shipping Address: @ViewBag.address</h4>

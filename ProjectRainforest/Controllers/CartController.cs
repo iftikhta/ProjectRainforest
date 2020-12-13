@@ -101,11 +101,6 @@ namespace ProjectRainforest.Controllers
         [HttpPost]
         public ActionResult AddToCart(int productId, int q)
         {
-            //int q = Convert.ToInt32(quantity);
-            //q = Convert.ToInt32(DropDownList1.SelectedValue)
-            //fix how to recieve data 
-            //testing stuff delete later
-            //userId = 2;
             string userId = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
             {
@@ -157,7 +152,6 @@ namespace ProjectRainforest.Controllers
         {
             string userId = _userManager.GetUserId(HttpContext.User);
 
-            //userId = 2;
             if (ModelState.IsValid)
             {
                 //check if it exists already and if so add/subtract from row
