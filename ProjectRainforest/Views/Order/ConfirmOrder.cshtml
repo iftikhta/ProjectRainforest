@@ -35,6 +35,7 @@
                                 <div class="row">
                                     <select class="form-control ml-2" id="sel1" name="quantity" style="width: 100px;">
                                         <option selected>@cart.Quantity</option>
+                                        <option>0</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -61,7 +62,7 @@
 
 }
 <hr />
-<h4>total: @ViewBag.cartTotal</h4>
-<h4>total with tax: @ViewBag.cartTotalWithTax</h4>
+<h4>total: @ViewBag.cartTotal$</h4>
+<h4>total with tax: @ViewBag.cartTotalWithTax$</h4>
 <h4>Shipping Address: @ViewBag.address</h4>
-<a href="/Order/PlaceOrder" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Place Order</a>
+<a href="/Order/PlaceOrder" class="btn btn-warning" role="button" aria-pressed="true" style="width: 400px;">Place Order</a>

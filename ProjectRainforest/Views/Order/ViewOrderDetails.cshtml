@@ -6,27 +6,31 @@
 }
 
 <h1>ViewOrderDetails</h1>
-
+<a class="btn-link" asp-area="" asp-controller="Order" asp-action="ViewOrders">Back To Orders</a>
 <p>@ViewBag.Address</p>
 
-<div style="max-width: 18rem; min-width: 18rem; margin-bottom: 20px;" text-align: center">
-
-    @foreach(Product prod in (List<Product>)ViewBag.Products)
+@*@foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
+    {*@
+<!--<h5 class="card-title" value="">ViewBag.Orders.OrderId.ToString()</h5>-->
+@foreach (Product prod in (List<Product>)ViewBag.Products)
+{
+    @foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
     {
-        @foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
+        @if (order.ProductId == prod.ProductId)
         {
-            @if (order.ProductId == prod.ProductId)
-            {
-            <div class="card-body">
-                Product: @prod.ProductName<br />
-                Price: @order.PricePaid<br/>
-                Quantity: @order.Quantity<br />
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h4>Product: @prod.ProductName</h4>
+                    <p>Price: @order.PricePaid</p>
+                    <p>Quantity: @order.Quantity</p>
+                </div>
             </div>
-            }
         }
+
     }
-</div>
-<h4>total: @ViewBag.Subtotal</h4>
-<h4>total with tax: @ViewBag.TotalWithTax</h4>
+}
+@* } *@
+<h4>total: @ViewBag.Subtotal$</h4>
+<h4>total with tax: @ViewBag.TotalWithTax$</h4>
 <h4>Shipping Address: @ViewBag.address</h4>
 

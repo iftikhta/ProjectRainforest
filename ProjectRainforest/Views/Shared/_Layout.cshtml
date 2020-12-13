@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using ProjectRainforest.Areas.Identity.Data
+
+@inject SignInManager<RainforestUser> SignInManager
+@inject UserManager<RainforestUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,6 +12,8 @@
     <title>@ViewData["Title"] - ProjectRainforest</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -19,8 +27,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                
-                    <partial name="_LoginPartial.cshtml"  />
+
+                    <partial name="_LoginPartial.cshtml" />
 
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -33,14 +41,17 @@
                         <li class="nav-item text-center">
                             <a class="nav-link text-light navtxt" asp-area="" asp-controller="Product" asp-action="ViewAllProducts">Products</a>
                         </li>
+                        @if (User.IsInRole("Vendor"))
+                        {
                         <li class="nav-item text-center">
                             <a class="nav-link text-light navtxt" asp-area="" asp-controller="Product" asp-action="AddNewProduct">Add Product</a>
                         </li>
+                        }
                         <li class="nav-item text-center">
-                            <a class="nav-link text-light navtxt" asp-area="" asp-controller="Cart" asp-action="ViewCart">Shopping Cart</a>
+                            <a class="nav-link text-light navtxt" asp-area="" asp-controller="Cart" asp-action="ViewCart">Cart</a>
                         </li>
                         <li class="nav-item text-center">
-                            <a class="nav-link text-light navtxt" asp-area="" asp-controller="Order" asp-action="ViewOrders">Orders &amp; Returns</a>
+                            <a class="nav-link text-light navtxt" asp-area="" asp-controller="Order" asp-action="ViewOrders">Orders</a>
                         </li>
                     </ul>
                 </div>

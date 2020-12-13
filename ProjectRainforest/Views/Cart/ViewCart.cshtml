@@ -25,7 +25,7 @@
                 @if (prodInfo.ProductId == prod.ProductId)
                 { 
                     <p>Description: @prodInfo.ProductDescription</p>
-                    <p>Price: @prodInfo.ProductPrice</p>
+                    <p>Price: @prodInfo.ProductPrice$</p>
                     <form method="post" asp-controller="Cart" asp-action="UpdateCartItem">
                         @foreach (Cart cart in (ViewBag.carts))
                         {
@@ -62,5 +62,5 @@
 
 }
 <hr />
-<a href="/Order/ConfirmOrder" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Checkout</a>
-<h4>total: @ViewBag.cartTotal</h4>
+<h4>total: @ViewBag.cartTotal$</h4>
+<a href="/Order/ConfirmOrder" class="btn btn-warning" role="button" aria-pressed="true" style="width: 400px;">Continue to checkout</a>

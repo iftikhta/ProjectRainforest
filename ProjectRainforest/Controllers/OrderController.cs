@@ -66,7 +66,7 @@ namespace ProjectRainforest.Controllers
 
             ///End Tax test
             ViewBag.address = userAddress;
-            ViewBag.cartTotalWithTax = withTax;
+            ViewBag.cartTotalWithTax = Math.Round(withTax, 2);
             ViewBag.cartTotal = cartTotal;
             ViewBag.carts = cartItems;
             ViewBag.products = cartProducts;
