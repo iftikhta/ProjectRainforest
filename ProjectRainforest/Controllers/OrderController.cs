@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,7 @@ using TaxServiceReference;
 
 namespace ProjectRainforest.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
@@ -82,7 +84,10 @@ namespace ProjectRainforest.Controllers
 
             //Store all order contents in seperate table
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
-
+            if (cartItems.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             //Create an order based off currently available information
             Order newOrder = new Order();
@@ -135,9 +140,7 @@ namespace ProjectRainforest.Controllers
         }
 
 
-
-
-        //View a summary of the orders
+        //View a summary of the orders, keep it simple, fill any null data
         public IActionResult ViewOrders()
         {
             string userId = _userManager.GetUserId(HttpContext.User);

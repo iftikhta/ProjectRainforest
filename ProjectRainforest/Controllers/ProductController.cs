@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 namespace ProjectRainforest.Controllers
 {
     //Taha
+    [Authorize]
     public class ProductController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
@@ -69,6 +70,7 @@ namespace ProjectRainforest.Controllers
 
         //Tommas
         [HttpPost]
+        [Authorize(Roles = "Vendor")]
         public ViewResult AddNewProduct(ProductInfo productResponse, string name)
         {
             if (ModelState.IsValid)
