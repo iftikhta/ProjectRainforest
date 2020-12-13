@@ -110,12 +110,15 @@ namespace ProjectRainforest.Controllers
             if (ModelState.IsValid)
             {
 
+                //May have to remove if this line causes problems
+                context = new RainforestDBContext();
                 //check if it exists already and if so add/subtract from row
                 var existingCart = context.Carts.Find(userId, productId);
                 if (existingCart != null)
                 {
                     existingCart.Quantity += q;
                     context.Entry(existingCart).State = EntityState.Modified;
+
                 }
                 else
                 {
@@ -126,8 +129,9 @@ namespace ProjectRainforest.Controllers
                     newCartRow.Quantity = q;
 
                     context.Carts.Add(newCartRow);
+         
+
                 }
-          
                 context.SaveChanges();
 
                 ViewBag.items = context.Products.ToList();
