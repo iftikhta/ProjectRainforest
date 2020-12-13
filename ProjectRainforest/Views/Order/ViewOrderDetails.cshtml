@@ -16,8 +16,6 @@
 
 @*@foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
 {*@
-<div style="max-width: 18rem; min-width: 18rem; margin-bottom: 20px;" text-align: center">
-
     <!--<h5 class="card-title" value="">ViewBag.Orders.OrderId.ToString()</h5>-->
     @foreach(Product prod in (List<Product>)ViewBag.Products)
     {
@@ -25,16 +23,17 @@
         {
             @if (order.ProductId == prod.ProductId)
             {
-            <div class="card-body">
-                Product: @prod.ProductName<br />
-                Price: @order.PricePaid<br/>
-                Quantity: @order.Quantity<br />
-            </div>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h4>Product: @prod.ProductName</h4>
+                        <p>Price: @order.PricePaid</p>
+                        <p>Quantity: @order.Quantity</p>
+                    </div>
+                </div>
             }
 
         }
     }
-</div>
 @* } *@
 <h4>total: @ViewBag.Subtotal</h4>
 <h4>total with tax: @ViewBag.TotalWithTax</h4>
