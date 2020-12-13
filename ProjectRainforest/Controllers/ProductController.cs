@@ -6,55 +6,65 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.AspNetCore.Authorization;
+using ProjectRainforest.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProjectRainforest.Controllers
 {
-    //Taha
+    //Tommas
+    [Authorize]
     public class ProductController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
+        private readonly UserManager<RainforestUser> _userManager;
+        public static string uuid;
 
-        //private readonly ILogger<ProductController> _logger;
-
-        //public ProductController(ILogger<ProductController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
-        public ProductController()
+        public ProductController(UserManager<RainforestUser> userManager)
         {
+            //Required to get current user
+            _userManager = userManager;
 
         }
 
         //Tommas
         public IActionResult ViewAllProducts()
         {
+            //Passing data to ViewAllProductsPage
+            //required to make products visible on ViewAllProducts Page
             ViewBag.items = context.Products.ToList();
             ViewBag.details = context.ProductInfos.ToList();
             return View();
         }
 
-        //Tommas
+        //Jordan
         [HttpGet]
-        public IActionResult AddNewProduct()
+        [Authorize(Roles = "Vendor")]
+        public async Task<IActionResult> AddNewProduct()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+
+            if (user.VendorID == null)
+            {
+                return RedirectToAction("SignUp", "Vendor");
+            }
+
             //returning AddProduct
             return View();
         }
 
-        //Taha
+        //Vlad
         [HttpGet]
         public IActionResult ViewProduct(int productID)
         {
-            //maybe remove parameter above
-            //int id = int.Parse(RouteData.Values["id"].ToString());
+            
             int id = productID;
 
             Product foundProduct = context.Products.FirstOrDefault(x => x.ProductId.Equals(id));
             ProductInfo foundProductInfo = context.ProductInfos.FirstOrDefault(x => x.ProductId.Equals(id));
-            //ViewData.Model = foundProduct;
             ViewBag.details = context.ProductInfos.ToList();
+            ViewBag.vendor = context.Vendor.FirstOrDefault(x => x.VendorId.Equals(foundProduct.VendorId));
             return View(foundProduct);
         }
 
@@ -62,36 +72,41 @@ namespace ProjectRainforest.Controllers
 
         //Tommas
         [HttpPost]
-        public ViewResult AddNewProduct(ProductInfo productResponse, string name, int vendorId)
+        [Authorize(Roles = "Vendor")]
+        public ViewResult AddNewProduct(ProductInfo productResponse, string name)
         {
             if (ModelState.IsValid)
             {
-                int id = 0;
-                int i = context.Products.ToList().Count() + 1;
 
-                /* foreach (Product prod in (context.Products.ToList()))
-                 {
-                     i++;
-                 }*/
+                //Getting user id and vendor id of current user
+                //required to make sure product has correct vendor id
+                string userId = _userManager.GetUserId(HttpContext.User);
+
+                int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
+
+                //Creating new product and info to add to db
+                //required to add product so it is visible to other users
                 Product newProduct = new Product();
-                newProduct.ProductId = i;
                 newProduct.ProductName = name;
-                newProduct.VendorId = vendorId;
+                newProduct.VendorId = vendId;
                 context.Products.Add(newProduct);
-                //Product x = context.Products.Find(newProduct);
                 context.SaveChanges();
+                int max = context.Products.Max(p => p.ProductId);
                 productResponse.Product = newProduct;
-                productResponse.ProductId = i;
+                productResponse.ProductId = max;
+                productResponse.DateAdded = DateTime.Now;
                 context.ProductInfos.Add(productResponse);
                 context.SaveChanges();
+                //Passing data to ViewAllProductsPage
+                //required to make products visible on ViewAllProducts Page
                 ViewBag.items = context.Products.ToList();
                 ViewBag.details = context.ProductInfos.ToList();
-                return View("ViewProducts");
+                return View("ViewAllProducts");
             }
             else
             {
                 // there is a validation error
-                return View("Index");
+                return View("AddNewProduct");
             }
         }
 

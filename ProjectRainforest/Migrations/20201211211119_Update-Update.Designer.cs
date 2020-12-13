@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectRainforest.Data;
 
 namespace ProjectRainforest.Migrations
 {
     [DbContext(typeof(RainforestAuthContext))]
-    partial class RainforestAuthContextModelSnapshot : ModelSnapshot
+    [Migration("20201211211119_Update-Update")]
+    partial class UpdateUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,7 +223,7 @@ namespace ProjectRainforest.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<int?>("VendorID")
+                    b.Property<int>("VendorID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

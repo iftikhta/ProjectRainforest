@@ -1,41 +1,62 @@
-﻿@model ProjectRainforest.Models.Product
+﻿<!--Tommas-->
+@model ProjectRainforest.Models.Product
 
 @{
     ViewData["Title"] = "ViewProduct";
     Layout = "_layout";
 }
+@using Microsoft.AspNetCore.Identity
+@using ProjectRainforest.Areas.Identity.Data
 
-<h1>ViewProduct</h1>
+@inject UserManager<RainforestUser> UserManager
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class="col-sm-10">
+
+    <div class="row">
+        <h4 class="col-sm-10">
             @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Vendor)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Vendor.VendorTitle)
-        </dd>
+        </h4>
+        <h5 class="col-sm-10">
+            Vendor: @ViewBag.vendor.VendorTitle
+        </h5>
+        <hr />
         @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.details)
         {
             @if (prodInfo.ProductId == Model.ProductId)
             {
-                <dd class="col-sm-10">
-                    Description: @prodInfo.ProductDescription<br />
-                    Price: @prodInfo.ProductPrice<br />
-                </dd>
+                <div class="row ml-2">
+                    <div style="max-width: 18rem; min-width: 18rem; margin: 20px;" text-align: center">
+                        <img class="card-img-top" src="@prodInfo.ProductImg" alt="Image Not Found">
+                    </div>
+                    <div>
+                        <p class="col-sm-10">
+                            Description: @prodInfo.ProductDescription<br />
+                            Price: @prodInfo.ProductPrice$<br />
+                        </p>
+                    </div>
+                </div>
             }
         }
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+    </div>
+
+    <div>
+        <form asp-controller="Cart" asp-action="AddToCart">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group ml-2">
+                <label>Quantity: </label>
+                <input class="form-control" type="number" max="5" min="1" name="q" value="1" style="width: 300px"/>
+            </div>
+            <div class="form-group">
+                
+                <input hidden class="form-control" name="productId" value="@Model.ProductId" />
+            </div>
+            <div class="form-group ml-2">
+                <input type="submit" value="Add to Cart" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    <div class="ml-2">
+        <a asp-controller="Product" asp-action="ViewAllProducts">Back to List</a>
+    </div>
+

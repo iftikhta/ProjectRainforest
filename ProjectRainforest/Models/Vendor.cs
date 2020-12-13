@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace ProjectRainforest.Models
 {
     public partial class Vendor
     {
         public Vendor()
         {
-            Products = new HashSet<Product>();
+            Product = new HashSet<Product>();
         }
 
         public int VendorId { get; set; }
@@ -18,6 +16,6 @@ namespace ProjectRainforest.Models
         public double? VendorRatingAvg { get; set; }
         public string VendorImg { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Product { get; set; }
     }
 }

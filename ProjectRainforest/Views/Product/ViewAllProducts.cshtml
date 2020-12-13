@@ -2,44 +2,37 @@
     ViewData["Title"] = "Products";
     Layout = "_Layout";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Product List</h1>
-
+<h1>Product List</h1>
+<div class="card-deck justify-content-between" style="padding: 20px;">
     @foreach (Product prod in (List<Product>)ViewBag.items)
     {
-        //<form asp-action="Products">
-            <div class="card " style=" padding: 18rem; margin: auto; text-align: center">
+    <div class="card" style="max-width: 18rem; min-width: 18rem; margin-bottom: 20px;" text-align: center">
+
+        <h5 class="card-title" value="">@prod.ProductName.ToString()</h5>
+        @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.details)
+        {
+            @if (prodInfo.ProductId == prod.ProductId)
+            {
+                <img class="card-img-top" src="@prodInfo.ProductImg" style="height: 200px;" alt="Image Not Found">
                 <div class="card-body">
-                    <h5 class="card-title" value="">@prod.ProductName.ToString()</h5>
-                    @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.details)
-                    {
-                        @if (prodInfo.ProductId == prod.ProductId)
-                        {
-                            <div>
-                                Description: @prodInfo.ProductDescription
-                                <br />
-                                Price: @prodInfo.ProductPrice 
-                                <br />
-                                <p class="btn btn-outline-dark" style="color: white;" name="productId">
-                                    @Html.ActionLink("ViewProduct", "ViewProduct", new { productId = prod.ProductId })
-                                </p>
-                            </div>
-
-                        }
-                    }
+                    <p>Description: @prodInfo.ProductDescription</p>
+                    <p>Price: @prodInfo.ProductPrice$</p>
+                    <p class="btn btn-outline-dark" style="color: white;" name="productId">
+                        @Html.ActionLink("ViewProduct", "ViewProduct", new { productId = prod.ProductId })
+                    </p>
                 </div>
-            </div>
-        //</form>
 
+            }
+        }
+    </div>
     }
 </div>
 
-   
 
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 

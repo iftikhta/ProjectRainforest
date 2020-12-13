@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "Confirm Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*ViewBag.cartTotal = cartTotal;
+    ViewBag.carts = cartItems;
+    ViewBag.products = cartProducts;
+    ViewBag.productsInfo = cartProductInfos;*@
+
+
+
+@*@ViewBag.products[0].ProductName;*@
+
+
+<h1>Confirm this order:</h1>
+
+@foreach (Product prod in (List<Product>)ViewBag.products)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title" value="">@prod.ProductName.ToString()</h5>
+            @foreach (ProductInfo prodInfo in (List<ProductInfo>)ViewBag.productsInfo)
+            {
+                @if (prodInfo.ProductId == prod.ProductId)
+                {
+                    <p>Description: @prodInfo.ProductDescription</p>
+                    <p>Price: @prodInfo.ProductPrice$</p>
+                    <form method="post" asp-controller="Cart" asp-action="UpdateCartItem">
+                        @foreach (Cart cart in (ViewBag.carts))
+                        {
+                            if (cart.ProductId == prod.ProductId)
+                            {
+                                <input type="hidden" id="custId" name="productId" value="@prod.ProductId">
+                                <div class="row">
+                                    <select class="form-control ml-2" id="sel1" name="quantity" style="width: 100px;">
+                                        <option selected>@cart.Quantity</option>
+                                        <option>0</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                    </select>
+                                    <input type="submit" class="btn btn-primary ml-2" value="Update" />
+                                </div>
+                            }
+
+                        }
+                    </form>
+
+                }
+            }
+        </div>
+    </div>
+
+
+    //</form>
+
+}
+<hr />
+<h4>total: @ViewBag.cartTotal$</h4>
+<h4>total with tax: @ViewBag.cartTotalWithTax$</h4>
+<h4>Shipping Address: @ViewBag.address</h4>
+<a href="/Order/PlaceOrder" class="btn btn-warning" role="button" aria-pressed="true" style="width: 400px;">Place Order</a>

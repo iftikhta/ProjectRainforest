@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ProjectRainforest.Models.Order>
+
+@{
+    ViewData["Title"] = "ViewOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View Orders</h1>
+@*Taha*@ 
+<p>
+    <a asp-action="ViewAllProducts" asp-controller="Product">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DatePlaced)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                Order Deatils
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePlaced)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)$
+            </td>
+            <td>
+                @Html.ActionLink("Details", "ViewOrderDetails", "Order", new { orderId = item.OrderId })
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

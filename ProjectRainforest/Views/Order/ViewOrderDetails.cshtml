@@ -1,0 +1,35 @@
+﻿<!--Tommas-->
+@model IEnumerable<ProjectRainforest.Models.OrderContents>
+
+@{
+    ViewData["Title"] = "ViewOrderDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ViewOrderDetails</h1>
+<a class="btn-link" asp-area="" asp-controller="Order" asp-action="ViewOrders">Back To Orders</a>
+<p>@ViewBag.Address</p>
+
+
+@foreach (Product prod in (List<Product>)ViewBag.Products)
+{
+    @foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
+    {
+        @if (order.ProductId == prod.ProductId)
+        {
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h4>Product: @prod.ProductName</h4>
+                    <p>Price: @order.PricePaid$</p>
+                    <p>Quantity: @order.Quantity</p>
+                </div>
+            </div>
+        }
+
+    }
+}
+
+<h4>total: @ViewBag.Subtotal$</h4>
+<h4>total with tax: @ViewBag.TotalWithTax$</h4>
+<h4>Shipping Address: @ViewBag.address</h4>
+

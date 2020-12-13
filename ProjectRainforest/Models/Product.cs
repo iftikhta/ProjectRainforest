@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace ProjectRainforest.Models
 {
     public partial class Product
     {
         public Product()
         {
-            Carts = new HashSet<Cart>();
+            Cart = new HashSet<Cart>();
+            OrderContents = new HashSet<OrderContents>();
         }
 
         public int ProductId { get; set; }
@@ -19,6 +18,7 @@ namespace ProjectRainforest.Models
         public virtual Vendor Vendor { get; set; }
         public virtual Inventory Inventory { get; set; }
         public virtual ProductInfo ProductInfo { get; set; }
-        public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Cart> Cart { get; set; }
+        public virtual ICollection<OrderContents> OrderContents { get; set; }
     }
 }
