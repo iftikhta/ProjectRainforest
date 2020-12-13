@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 namespace ProjectRainforest.Areas.Identity.Data
 {
     // Add profile data for application users by adding properties to the RainforestUser class
+    //Jordan
     public class RainforestUser : IdentityUser
     {
         [PersonalData]
