@@ -185,7 +185,7 @@ namespace ProjectRainforest.Controllers
             ViewBag.Products = orderProducts;
             ViewBag.Address = userAddress;
             ViewBag.Subtotal = subtotal;
-            ViewBag.TotalWithTax = withTax;
+            ViewBag.TotalWithTax = Math.Round(withTax, 2);
 
             return View();
         }
