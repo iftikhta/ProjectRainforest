@@ -31,7 +31,7 @@ namespace ProjectRainforest.Controllers
             List<ProductInfo> allD = context.ProductInfos.ToList();
             if (allP.Count >= 3)
             {
-                if (allP[1] != null)
+                if (allP[0] != null)
                 {
                     ViewBag.item1 = allP[0];
                     ViewBag.detail1 = allD[0];

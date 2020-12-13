@@ -12,18 +12,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ProjectRainforest.Controllers
 {
-    //Taha
+    //Tommas
     [Authorize]
     public class ProductController : Controller
     {
         public static RainforestDBContext context = new RainforestDBContext();
 
-        //private readonly ILogger<ProductController> _logger;
-
-        //public ProductController(ILogger<ProductController> logger)
-        //{
-        //    _logger = logger;
-        //}
         private readonly UserManager<RainforestUser> _userManager;
         public static string uuid;
 
@@ -50,17 +44,15 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
-        //Taha
+        //Vlad
         [HttpGet]
         public IActionResult ViewProduct(int productID)
         {
-            //maybe remove parameter above
-            //int id = int.Parse(RouteData.Values["id"].ToString());
+            
             int id = productID;
 
             Product foundProduct = context.Products.FirstOrDefault(x => x.ProductId.Equals(id));
             ProductInfo foundProductInfo = context.ProductInfos.FirstOrDefault(x => x.ProductId.Equals(id));
-            //ViewData.Model = foundProduct;
             ViewBag.details = context.ProductInfos.ToList();
             ViewBag.vendor = context.Vendor.FirstOrDefault(x => x.VendorId.Equals(foundProduct.VendorId));
             return View(foundProduct);
