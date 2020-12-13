@@ -51,6 +51,7 @@ namespace ProjectRainforest.Controllers
             user.VendorID = i;
             await _userManager.UpdateAsync(user);
 
+            //return View("../Home/Index");
             return RedirectToAction("Index", "Home");
         }
     }

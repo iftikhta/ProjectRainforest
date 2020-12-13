@@ -41,11 +41,19 @@ namespace ProjectRainforest.Controllers
             return View();
         }
 
-        //Tommas
+        //Jordan
         [HttpGet]
         [Authorize(Roles = "Vendor")]
-        public IActionResult AddNewProduct()
+        public async Task<IActionResult> AddNewProduct()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+
+            if (user.VendorID == null)
+            {
+                return RedirectToAction("SignUp", "Vendor");
+            }
+
             //returning AddProduct
             return View();
         }
