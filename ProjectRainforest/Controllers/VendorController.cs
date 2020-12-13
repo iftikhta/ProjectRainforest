@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectRainforest.Controllers
 {
+    //Jordan
     [Authorize(Roles = "Vendor")]
     public class VendorController : Controller
     {
@@ -51,6 +52,7 @@ namespace ProjectRainforest.Controllers
             user.VendorID = i;
             await _userManager.UpdateAsync(user);
 
+            //return View("../Home/Index");
             return RedirectToAction("Index", "Home");
         }
     }
