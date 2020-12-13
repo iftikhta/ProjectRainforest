@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>ViewOrders</h1>
-You can view the details at Order/ViewOrderDetails/id, make sure to use that 
+<h1>View Orders</h1>
+@*You can view the details at Order/ViewOrderDetails/id, make sure to use that*@ 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -17,24 +17,14 @@ You can view the details at Order/ViewOrderDetails/id, make sure to use that
                 @Html.DisplayNameFor(model => model.DatePlaced)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateUserCancelled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateVendorCancelled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFulfilled)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.OrderStatus)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Total)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                Order Deatils
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -44,27 +34,14 @@ You can view the details at Order/ViewOrderDetails/id, make sure to use that
                 @Html.DisplayFor(modelItem => item.DatePlaced)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateUserCancelled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateVendorCancelled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateFulfilled)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.OrderStatus)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Total)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                @Html.ActionLink("Details", "ViewOrderDetails", "Order", new { orderId = item.OrderId })
+
             </td>
         </tr>
 }

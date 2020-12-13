@@ -7,53 +7,82 @@
 
 <h1>ViewOrderDetails</h1>
 
-Use the provided view bags to show details
 <p>@ViewBag.Address</p>
+@*ViewBag.Orders = orderContentDetails;
+    ViewBag.Products = orderProducts;
+    ViewBag.Address = userAddress;
+    ViewBag.Subtotal = subtotal;
+    ViewBag.TotalWithTax = withTax;*@
 
+@*@foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
+{*@
+<div style="max-width: 18rem; min-width: 18rem; margin-bottom: 20px;" text-align: center">
+
+    <!--<h5 class="card-title" value="">ViewBag.Orders.OrderId.ToString()</h5>-->
+    @foreach(Product prod in (List<Product>)ViewBag.Products)
+    {
+        @foreach (OrderContents order in (List<OrderContents>)ViewBag.Orders)
+        {
+            @if (order.ProductId == prod.ProductId)
+            {
+            <div class="card-body">
+                Product: @prod.ProductName<br />
+                Price: @order.PricePaid<br/>
+                Quantity: @order.Quantity<br />
+            </div>
+            }
+
+        }
+    }
+</div>
+@* } *@
+<h4>total: @ViewBag.Subtotal</h4>
+<h4>total with tax: @ViewBag.TotalWithTax</h4>
+<h4>Shipping Address: @ViewBag.address</h4>
 
 
 @*<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PricePaid)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PricePaid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Order.OrderStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.ProductName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PricePaid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Order)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PricePaid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order.OrderStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
