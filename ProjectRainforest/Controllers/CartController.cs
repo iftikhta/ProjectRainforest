@@ -14,6 +14,7 @@ using TaxServiceReference;
 namespace ProjectRainforest.Controllers
 {
 
+    //Taha
     [Authorize]
     public class CartController : Controller
     {
@@ -21,6 +22,7 @@ namespace ProjectRainforest.Controllers
 
         private readonly ILogger<CartController> _logger;
 
+        //allows accessing user data setup by identity framework
         private readonly UserManager<RainforestUser> _userManager;
 
         public static string uuid;
@@ -32,25 +34,11 @@ namespace ProjectRainforest.Controllers
         }
 
 
-
-        //public CartController()
-        //{
-
-        //}
-
         public IActionResult Index()
         {
             return View();
         }
 
-
-       // Taha
-        //[HttpGet]
-        //public IActionResult ViewCart(string userId)
-        //{
-
-        //    return ViewCart(userId, 1);
-        //}
 
 
 
@@ -62,9 +50,7 @@ namespace ProjectRainforest.Controllers
             //Get the user id
             string userId = _userManager.GetUserId(HttpContext.User);
 
-            // userId = uuid;
-            // userId = "f7864318-fa89-419e-b5ef-aa51fbcfd5d0";
-            //Get all carts for current id as 
+    
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
             //Get all users products and product infos listed in cart by product_id 
@@ -72,7 +58,7 @@ namespace ProjectRainforest.Controllers
             List<ProductInfo> cartProductInfos = new List<ProductInfo>();
 
             float cartTotal = 0;
-            foreach (Cart c in cartItems){ //fuck im good
+            foreach (Cart c in cartItems){ 
                 Product currProduct = context.Products.Find(c.ProductId);
                 ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
                 cartProducts.Add(currProduct);
@@ -101,6 +87,7 @@ namespace ProjectRainforest.Controllers
         [HttpPost]
         public ActionResult AddToCart(int productId, int q)
         {
+     
             string userId = _userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
             {
@@ -131,15 +118,12 @@ namespace ProjectRainforest.Controllers
 
                 ViewBag.items = context.Products.ToList();
                 ViewBag.details = context.ProductInfos.ToList();
-                //return (ViewResult)new ProductController().ViewProduct(productId);
-                //return View("ViewCart"); //go here after finsihing update/adding new
+                
                 return RedirectToAction("ViewCart");
-                //return RedirectToAction("ViewCart");
 
             }
             else
             {
-                // there is a validation error
                 return View("Index");
             }
         }
@@ -152,6 +136,7 @@ namespace ProjectRainforest.Controllers
         {
             string userId = _userManager.GetUserId(HttpContext.User);
 
+            //userId = 2;
             if (ModelState.IsValid)
             {
                 //check if it exists already and if so add/subtract from row
@@ -175,12 +160,10 @@ namespace ProjectRainforest.Controllers
                 {                
                     //Do nothing for now because this shouldnt be necessary anyway
                 }
-                //context.SaveChanges();
 
 
                 return RedirectToAction("ViewCart");
-                //return (ViewResult)new ProductController().ViewProduct(productId);
-                //return View("ViewCart"); //go here after finsihing update/adding new
+               
             }
             else
             {

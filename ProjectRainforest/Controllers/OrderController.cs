@@ -14,6 +14,9 @@ using TaxServiceReference;
 
 namespace ProjectRainforest.Controllers
 {
+
+
+    //Taha
     [Authorize]
     public class OrderController : Controller
     {
@@ -40,9 +43,6 @@ namespace ProjectRainforest.Controllers
             string userId = user.Id;
             string userAddress = user.Address;
 
-            //Jordan create whatever contract will give me access to users address field
-            //string userAddress = _userManager.GetUserAddress(HttpContext.User);
-
             List<Cart> cartItems = context.Carts.Where(x => x.UserId.Equals(userId)).ToList();
 
             //Get all users products and product infos listed in cart by product_id 
@@ -51,7 +51,7 @@ namespace ProjectRainforest.Controllers
 
             float cartTotal = 0;
             foreach (Cart c in cartItems)
-            { //fuck im good
+            { 
                 Product currProduct = context.Products.Find(c.ProductId);
                 ProductInfo currProductInfo = context.ProductInfos.Find(c.ProductId);
                 cartProducts.Add(currProduct);
@@ -185,7 +185,7 @@ namespace ProjectRainforest.Controllers
             ViewBag.Products = orderProducts;
             ViewBag.Address = userAddress;
             ViewBag.Subtotal = subtotal;
-            ViewBag.TotalWithTax = withTax;
+            ViewBag.TotalWithTax = Math.Round(withTax, 2);
 
             return View();
         }
