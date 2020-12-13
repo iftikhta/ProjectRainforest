@@ -162,12 +162,22 @@ namespace ProjectRainforest.Controllers
                 {
                     existingCart.Quantity = quantity;
                     context.Entry(existingCart).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+                if (existingCart != null && quantity == 0)
+                {
+                    List<Cart> zeroQuantityProducts = context.Carts.Where(ci => ci.Quantity == 0).ToList();
+                    foreach (Cart cartItem in zeroQuantityProducts)
+                    {
+                        context.Carts.Remove(cartItem);
+                    }
+                    context.SaveChanges();
                 }
                 else
                 {                
                     //Do nothing for now because this shouldnt be necessary anyway
                 }
-                context.SaveChanges();
+                //context.SaveChanges();
 
 
                 return RedirectToAction("ViewCart");
