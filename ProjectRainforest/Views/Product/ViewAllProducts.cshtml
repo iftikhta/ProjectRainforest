@@ -16,7 +16,7 @@
                 <img class="card-img-top" src="@prodInfo.ProductImg" style="height: 200px;" alt="Image Not Found">
                 <div class="card-body">
                     <p>Description: @prodInfo.ProductDescription</p>
-                    <p>Price: @prodInfo.ProductPrice</p>
+                    <p>Price: @prodInfo.ProductPrice$</p>
                     <p class="btn btn-outline-dark" style="color: white;" name="productId">
                         @Html.ActionLink("ViewProduct", "ViewProduct", new { productId = prod.ProductId })
                     </p>
