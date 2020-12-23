@@ -14,3 +14,8 @@ Existing features:
 * Login/Registration (authentication/authorization)
 * User types like vendor
 * Vendor Backend (Create products etc)
+
+
+
+Landing page:
+![Project Rainforest](https://cdn.discordapp.com/attachments/521722890463477770/791448470707372042/rainForest.png)
