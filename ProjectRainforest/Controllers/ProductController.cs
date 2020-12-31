@@ -129,7 +129,7 @@ namespace ProjectRainforest.Controllers
         public async Task<ViewResult> AddProductsFromAPI(string url)
         {
             HttpClient client = new HttpClient();
-            var httpResponse = await client.GetAsync("https://tutoringwebsite.azurewebsites.net/api/tutors");
+            var httpResponse = await client.GetAsync(url);
             string ReadContent = await httpResponse.Content.ReadAsStringAsync();
             
             var TutorList = JsonConvert.DeserializeObject<Tutors>(ReadContent).Data;
