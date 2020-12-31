@@ -133,7 +133,7 @@ namespace ProjectRainforest.Controllers
             
             //var myJsonObject = JsonConvert.DeserializeObject<Tutor>(httpResponse.Content.ToString());
 
-            return View("AddProductsFromAPI", httpResponse.Content.ToString());
+            return View("AddProductsFromAPI", httpResponse.ToString());
 
         }
 
