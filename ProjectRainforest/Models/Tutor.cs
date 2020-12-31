@@ -17,4 +17,9 @@ namespace ProjectRainforest.Models
         public DateTime Tutor_date_joined { get; set; }
 
     }
+
+    public class Tutors
+    {
+        public List<Tutor> Data { get; set; }
+    }
 }
