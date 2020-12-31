@@ -126,14 +126,20 @@ namespace ProjectRainforest.Controllers
         //Convert that model type into product/product info types and add them to the database
         [HttpPost]
         [Authorize(Roles = "Vendor")]
-        public async Task<ViewResult> AddProductsFromAPI(string url)
+        public async Task<ViewResult> AddProductsFromAPI()
         {
-            HttpClient client = new HttpClient();
-            var httpResponse = await client.GetAsync(url);
-            string ReadContent = await httpResponse.Content.ReadAsStringAsync();
-            
-            var TutorList = JsonConvert.DeserializeObject<Tutors>(ReadContent).Data;
+            string UrlInput = Request.Form["url"];
 
+            HttpClient client = new HttpClient();
+            var httpResponse = await client.GetAsync(UrlInput);
+
+
+            string ReadContent = await httpResponse.Content.ReadAsStringAsync();
+
+            var TutorList = JsonConvert.DeserializeObject<Tutors>(ReadContent).Data;
+            
+           
+            
 
             string userId = _userManager.GetUserId(HttpContext.User);
             int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
