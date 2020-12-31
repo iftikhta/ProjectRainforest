@@ -109,6 +109,13 @@ namespace ProjectRainforest.Controllers
                 return View("AddNewProduct");
             }
         }
+        
+        [HttpGet]
+        [Authorize(Roles = "Vendor")]
+        public ViewResult GrabData() 
+        {
+            return View();
+        }
 
     }
 }
