@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using ProjectRainforest.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace ProjectRainforest.Controllers
 {
@@ -116,6 +118,27 @@ namespace ProjectRainforest.Controllers
         {
             return View();
         }
+
+
+
+        //Create a model to read data into/create objects of the book type, currently hardcoded for this purpose
+        //Convert data into the model type 
+        //Convert that model type into product/product info types and add them to the database
+        [HttpPost]
+        [Authorize(Roles = "Vendor")]
+        public async Task<ViewResult> AddProductsFromAPI(string url)
+        {
+            HttpClient client = new HttpClient();
+            var httpResponse = await client.GetAsync("https://tutoringwebsite.azurewebsites.net/api/tutors");
+            
+            //var myJsonObject = JsonConvert.DeserializeObject<Tutor>(httpResponse.Content.ToString());
+
+            return View(httpResponse.Content.ToString());
+
+        }
+
+
+        
 
     }
 }
