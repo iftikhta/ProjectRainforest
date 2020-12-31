@@ -132,10 +132,40 @@ namespace ProjectRainforest.Controllers
             var httpResponse = await client.GetAsync("https://tutoringwebsite.azurewebsites.net/api/tutors");
             string ReadContent = await httpResponse.Content.ReadAsStringAsync();
             
-            var TutorList = JsonConvert.DeserializeObject<Tutors>(ReadContent);
+            var TutorList = JsonConvert.DeserializeObject<Tutors>(ReadContent).Data;
 
 
-            return View("AddProductsFromAPI", TutorList.Data.Count.ToString());
+            string userId = _userManager.GetUserId(HttpContext.User);
+            int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
+
+            foreach (Tutor t in TutorList)
+            { 
+                Product newProduct = new Product();
+                newProduct.ProductName = t.Tutor_name;
+                newProduct.VendorId = vendId;
+                context.Products.Add(newProduct);
+                context.SaveChanges();
+                int max = context.Products.Max(p => p.ProductId);
+
+                ProductInfo pInfo = new ProductInfo();
+                pInfo.Product = newProduct;
+                pInfo.ProductId = max;
+                pInfo.DateAdded = t.Tutor_date_joined;
+                pInfo.ProductDescription = t.Tutor_description + "\nSubject names: " + t.Tutor_Subjects;
+                pInfo.ProductImg = t.Tutor_img;
+                pInfo.ProductPrice = t.Tutor_rate;
+                pInfo.ProductRating = t.Tutor_rating;
+
+                
+                context.ProductInfos.Add(pInfo);
+                context.SaveChanges();
+                //Passing data to ViewAllProductsPage
+                //required to make products visible on ViewAllProducts Page
+                //ViewBag.items = context.Products.ToList();
+                //ViewBag.details = context.ProductInfos.ToList();
+            }
+
+            return View("AddProductsFromAPI", "Complete");
 
         }
 
