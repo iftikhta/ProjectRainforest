@@ -228,6 +228,38 @@ namespace ProjectRainforest.Controllers
             return RedirectToAction("ViewEditProduct", new { ProductId = ProductID });
         }
 
+
+
+
+        //Some kind of visual warning/notification/prompt would be best
+        //Needs correct redirection etc
+        [HttpGet]
+        [Authorize(Roles = "Vendor")]
+        public ViewResult DeleteProduct(int ProductID)
+        {
+
+            string userId = _userManager.GetUserId(HttpContext.User);
+            int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
+            
+            Product product = context.Products.Find(ProductID);
+
+            if(vendId == product.VendorId)
+            {
+                ProductInfo productInfo = context.ProductInfos.Find(ProductID);
+
+                context.ProductInfos.Remove(productInfo);
+                context.SaveChanges();
+                context.Products.Remove(product);
+                context.SaveChanges();
+                
+                return View();
+            }
+
+            return View("Error");
+        }
+
+
+
         [Authorize(Roles = "Vendor")]
         public ViewResult ShowMyProducts()
         {
