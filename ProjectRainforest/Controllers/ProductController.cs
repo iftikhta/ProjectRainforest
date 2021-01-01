@@ -175,6 +175,21 @@ namespace ProjectRainforest.Controllers
 
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Vendor")]
+        public ViewResult ShowMyProducts() {
+            string userId = _userManager.GetUserId(HttpContext.User);
+            int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
+            List<Product> products = context.Products.ToList();
+            List<Product> ownedProducst = new List<Product>();
+            foreach (Product p in products) {
+                if (p.VendorId == vendId) {
+                    ownedProducst.Add(p);
+                }
+            }
+            return View(ownedProducst);
+        }
+
 
         
 
