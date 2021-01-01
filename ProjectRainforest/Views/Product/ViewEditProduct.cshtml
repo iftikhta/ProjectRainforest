@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<h1>Edit Page</h1>
+<h1>Add Products from The Website</h1>
+<form asp-controller="Product" asp-action="ViewEditProduct" method="post">
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="name" name="pName">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Description" name="pDescription">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Price" name="pPrice">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Image" name="pImage">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Rating" name="pRating">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Rating Count" name="pRatingCount">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="hidden" placeholder="Rating Count" name="ProductID" value="@ViewBag.Product.ProductId">
+    </div>
+    <input type="submit" class="btn btn-primary" value="Edit">
+</form>

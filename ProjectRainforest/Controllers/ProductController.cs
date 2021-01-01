@@ -194,9 +194,9 @@ namespace ProjectRainforest.Controllers
         //in future we should add a date modified/updated property and update it when edited and saved
         [HttpPost]
         [Authorize(Roles = "Vendor")]
-        public ViewResult EditProduct(int ProductID)
+        public ViewResult ViewEditProduct()
         {
-
+            int ProductID = Int32.Parse(Request.Form["ProductID"]);
             string PName = Request.Form["pName"];
             string PDescription = Request.Form["pDescription"];
             string PPrice = Request.Form["pPrice"];
