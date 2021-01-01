@@ -175,8 +175,60 @@ namespace ProjectRainforest.Controllers
 
         }
 
+        //Edit page should DISPLAY the current image and ideally update to the newly entered image on the same page using set image button
+        //Edit page should also show non editable properties like product ID etc but grey them out so user can see but not edit them
+        //Ensure date time is formated as appropriate string with some kind of calendar UI if possible
+        [HttpGet]
+        [Authorize(Roles = "Vendor")]
+        public ViewResult ViewEditProduct(int ProductID)
+        {
+            Product product = context.Products.Find(ProductID);
+            ProductInfo productInfo = context.ProductInfos.Find(ProductID);
 
-        
+            ViewBag.Product = product;
+            ViewBag.ProductInfo = productInfo;
+            return View();
+        }
+
+
+        //in future we should add a date modified/updated property and update it when edited and saved
+        [HttpPost]
+        [Authorize(Roles = "Vendor")]
+        public ViewResult EditProduct(int ProductID)
+        {
+
+            string PName = Request.Form["pName"];
+            string PDescription = Request.Form["pDescription"];
+            string PPrice = Request.Form["pPrice"];
+            string PImage = Request.Form["pImage"];
+            string PRating = Request.Form["pRating"];
+            string PRatingCount = Request.Form["pRatingCount"];
+
+
+            //if updates fail consider using .Entry / states
+            //Update Product
+            Product product = context.Products.Find(ProductID);
+            product.ProductName = PName;
+            context.SaveChanges();
+
+            //Update Product Info
+            ProductInfo productInfo = context.ProductInfos.Find(ProductID);
+            productInfo.ProductDescription = PDescription;
+            productInfo.ProductPrice = Int32.Parse(PPrice); //consider trypare or convert
+            productInfo.ProductImg = PImage;
+            productInfo.ProductRating = Int32.Parse(PRating);
+            productInfo.ProductRating = Int32.Parse(PRatingCount);
+            context.SaveChanges();
+
+
+            ViewBag.Product = product;
+            ViewBag.Product = productInfo;
+            
+            //Pass current ID to page if problems occour
+            return View("ViewEditProduct");
+        }
+
+
 
     }
 }
