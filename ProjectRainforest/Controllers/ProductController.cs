@@ -121,9 +121,7 @@ namespace ProjectRainforest.Controllers
 
 
 
-        //Create a model to read data into/create objects of the book type, currently hardcoded for this purpose
-        //Convert data into the model type 
-        //Convert that model type into product/product info types and add them to the database
+        //Method which lists products and allows selection of products to be shown on the website
         [HttpPost]
         [Authorize(Roles = "Vendor")]
         public async Task<ViewResult> AddProductsFromAPI()
@@ -137,15 +135,38 @@ namespace ProjectRainforest.Controllers
             string ReadContent = await httpResponse.Content.ReadAsStringAsync();
 
             var TutorList = JsonConvert.DeserializeObject<Tutors>(ReadContent).Data;
-            
-           
-            
+            ViewBag.URL = UrlInput; 
+
+            return View("AddProductsFromAPI", TutorList);
+        }
+
+
+        //Method which adds selected data to the database
+        [HttpPost]
+        [Authorize(Roles = "Vendor")]
+        public async Task<ActionResult> AddSelectedProductsFromAPI(string url)
+        {
+            string productNum = Request.Form["productNum"];
+            int[] nums = Array.ConvertAll(productNum.Split(','), int.Parse);
+
+            HttpClient client = new HttpClient();
+            var httpResponse = await client.GetAsync(url);
+
+
+            string ReadContent = await httpResponse.Content.ReadAsStringAsync();
+
+            var TutorList = JsonConvert.DeserializeObject<Tutors>(ReadContent).Data;
+
+
+
 
             string userId = _userManager.GetUserId(HttpContext.User);
             int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
 
-            foreach (Tutor t in TutorList)
-            { 
+            for(int i = 0; i < nums.Length; i++)
+            {
+                int n = nums[i];
+                Tutor t = TutorList[n];
                 Product newProduct = new Product();
                 newProduct.ProductName = t.Tutor_name;
                 newProduct.VendorId = vendId;
@@ -162,7 +183,7 @@ namespace ProjectRainforest.Controllers
                 pInfo.ProductPrice = t.Tutor_rate;
                 pInfo.ProductRating = t.Tutor_rating;
 
-                
+
                 context.ProductInfos.Add(pInfo);
                 context.SaveChanges();
                 //Passing data to ViewAllProductsPage
@@ -171,7 +192,7 @@ namespace ProjectRainforest.Controllers
                 //ViewBag.details = context.ProductInfos.ToList();
             }
 
-            return View("AddProductsFromAPI", "Complete");
+            return RedirectToAction("ShowMyProducts");
 
         }
 
@@ -275,6 +296,14 @@ namespace ProjectRainforest.Controllers
                 }
             }
             return View(ownedProducst);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Vendor")]
+        public ActionResult SelectProductsToDisplay() 
+        {
+
+            return View();
         }
     }
 }

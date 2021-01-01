@@ -1,6 +1,26 @@
-﻿@model string
+﻿@model IEnumerable<Tutor>
 @{
+    int i = 0;
     Layout = "_Layout";
 }
+<form asp-controller="Product" asp-action="AddSelectedProductsFromAPI" method="post">
+    @foreach(Tutor t in Model){
+        <div class="card text-center mt-5">
+            <div class="card-header">
+                @t.Tutor_name
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@t.Tutor_Subjects</h5>
+                <p class="card-text">@t.Tutor_description</p>
+                <p class="card-text">@t.Tutor_date_joined</p>
+            </div>
+            <div class="card-footer text-muted">
+                <input class="form-check-input" type="checkbox" value="@i" name="productNum">
+                <label class="form-check-label" for="defaultCheck1">Select Item</label>
+            </div>
+        </div>
+        i++;
+    }
 
-<p>@Model</p>
+    <input type="submit" class="btn btn-primary mt-3" value="Done" asp-action="AddSelectedProductsFromAPI" asp-route-url="@ViewBag.URL">
+</form> 
