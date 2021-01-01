@@ -184,7 +184,7 @@ namespace ProjectRainforest.Controllers
         {
             Product product = context.Products.Find(ProductID);
             ProductInfo productInfo = context.ProductInfos.Find(ProductID);
-
+            
             ViewBag.Product = product;
             ViewBag.ProductInfo = productInfo;
             return View();
@@ -194,7 +194,7 @@ namespace ProjectRainforest.Controllers
         //in future we should add a date modified/updated property and update it when edited and saved
         [HttpPost]
         [Authorize(Roles = "Vendor")]
-        public ViewResult ViewEditProduct()
+        public ActionResult ViewEditProduct()
         {
             int ProductID = Int32.Parse(Request.Form["ProductID"]);
             string PName = Request.Form["pName"];
@@ -217,15 +217,15 @@ namespace ProjectRainforest.Controllers
             productInfo.ProductPrice = Int32.Parse(PPrice); //consider trypare or convert
             productInfo.ProductImg = PImage;
             productInfo.ProductRating = Int32.Parse(PRating);
-            productInfo.ProductRating = Int32.Parse(PRatingCount);
+            productInfo.RatingCount = Int32.Parse(PRatingCount);
             context.SaveChanges();
 
 
             ViewBag.Product = product;
-            ViewBag.Product = productInfo;
+            ViewBag.ProductInfo = productInfo;
 
             //Pass current ID to page if problems occour
-            return View("ViewEditProduct");
+            return RedirectToAction("ViewEditProduct", new { ProductId = ProductID });
         }
 
         [Authorize(Roles = "Vendor")]

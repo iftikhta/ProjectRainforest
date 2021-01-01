@@ -6,25 +6,25 @@
 <h1>Add Products from The Website</h1>
 <form asp-controller="Product" asp-action="ViewEditProduct" method="post">
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="name" name="pName">
+        <input class="form-control" type="text" placeholder="name" name="pName" value="@ViewBag.Product.ProductName">
     </div>
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="Description" name="pDescription">
+        <input class="form-control" type="text" placeholder="Description" name="pDescription" value="@ViewBag.ProductInfo.ProductDescription">
     </div>
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="Price" name="pPrice">
+        <input class="form-control" type="text" placeholder="Price" name="pPrice" value="@ViewBag.ProductInfo.ProductPrice">
     </div>
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="Image" name="pImage">
+        <input class="form-control" type="text" placeholder="Image" name="pImage" value="@ViewBag.ProductInfo.ProductImg">
     </div>
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="Rating" name="pRating">
+        <input class="form-control" type="text" placeholder="Rating" name="pRating" value="@ViewBag.ProductInfo.ProductRating">
     </div>
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="Rating Count" name="pRatingCount">
+        <input class="form-control" type="text" placeholder="Rating Count" name="pRatingCount" value="@ViewBag.ProductInfo.RatingCount">
     </div>
     <div class="form-group">
         <input class="form-control" type="hidden" placeholder="Rating Count" name="ProductID" value="@ViewBag.Product.ProductId">
     </div>
-    <input type="submit" class="btn btn-primary" value="Edit">
+    <input type="submit" class="btn btn-primary" value="Edit" >
 </form>
