@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
-using TaxServiceReference;
+//using TaxServiceReference;
 
 namespace ProjectRainforest.Controllers
 {
@@ -61,12 +61,12 @@ namespace ProjectRainforest.Controllers
                 cartTotal += currProductInfo.ProductPrice * c.Quantity;
             }
             ///Start Tax test
-            TaxServiceClient TaxMan = new TaxServiceClient();
-            double withTax = await TaxMan.CalculateTaxAsync(cartTotal).ConfigureAwait(false);
+            //TaxServiceClient TaxMan = new TaxServiceClient();
+            //double withTax = await TaxMan.CalculateTaxAsync(cartTotal).ConfigureAwait(false);
 
             ///End Tax test
             ViewBag.address = userAddress;
-            ViewBag.cartTotalWithTax = Math.Round(withTax, 2);
+            ViewBag.cartTotalWithTax = Math.Round(cartTotal*1.13, 2);
             ViewBag.cartTotal = cartTotal;
             ViewBag.carts = cartItems;
             ViewBag.products = cartProducts;
@@ -171,8 +171,8 @@ namespace ProjectRainforest.Controllers
                 subtotal += o.PricePaid * o.Quantity;
             }
 
-            TaxServiceClient TaxMan = new TaxServiceClient();
-            double withTax = await TaxMan.CalculateTaxAsync(subtotal).ConfigureAwait(false);
+            //TaxServiceClient TaxMan = new TaxServiceClient();
+            //double withTax = await TaxMan.CalculateTaxAsync(subtotal).ConfigureAwait(false);
 
 
             //Get price paid and quantity from ViewBag.Orders
@@ -185,7 +185,7 @@ namespace ProjectRainforest.Controllers
             ViewBag.Products = orderProducts;
             ViewBag.Address = userAddress;
             ViewBag.Subtotal = subtotal;
-            ViewBag.TotalWithTax = Math.Round(withTax, 2);
+            ViewBag.TotalWithTax = Math.Round(subtotal*1.13, 2);
 
             return View();
         }

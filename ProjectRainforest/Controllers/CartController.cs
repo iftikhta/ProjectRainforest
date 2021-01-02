@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ProjectRainforest.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
-using TaxServiceReference;
+//using TaxServiceReference;
 
 namespace ProjectRainforest.Controllers
 {
@@ -68,12 +68,12 @@ namespace ProjectRainforest.Controllers
                 cartTotal += currProductInfo.ProductPrice*c.Quantity;
             }
             ///Start Tax test
-            TaxServiceClient TaxMan = new TaxServiceClient();
-            double withTax = await TaxMan.CalculateTaxAsync(cartTotal).ConfigureAwait(false);
+            //TaxServiceClient TaxMan = new TaxServiceClient();
+            //double withTax = await TaxMan.CalculateTaxAsync(cartTotal).ConfigureAwait(false);
 
             ///End Tax test
 
-            ViewBag.cartTotalWithTax = withTax;
+            ViewBag.cartTotalWithTax = cartTotal*1.13;
             ViewBag.cartTotal = cartTotal;
             ViewBag.carts = cartItems;
             ViewBag.products = cartProducts;
