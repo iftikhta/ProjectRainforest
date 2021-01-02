@@ -181,7 +181,7 @@ namespace ProjectRainforest.Controllers
                 pInfo.ProductDescription = t.Tutor_description + "\nSubject names: " + t.Tutor_Subjects;
                 pInfo.ProductImg = t.Tutor_img;
                 pInfo.ProductPrice = t.Tutor_rate;
-                pInfo.ProductRating = t.Tutor_rating;
+                pInfo.ProductRating = t.Tutor_id; //Temporarily making this a the tutorID
 
 
                 context.ProductInfos.Add(pInfo);
