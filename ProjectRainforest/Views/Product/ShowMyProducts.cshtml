@@ -6,9 +6,6 @@
 
 <h1>ShowMyProducts</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -27,7 +24,7 @@
             <td>
                 <a asp-action="ViewEditProduct" asp-route-ProductID="@item.ProductId">Edit</a> |
                 <a asp-action="Details" asp-route-ProductID="@item.ProductId">Details</a> |
-                <a asp-action="Delete" asp-route-ProductID="@item.ProductId">Delete</a>
+                <a asp-action="DeleteProduct" asp-route-ProductID="@item.ProductId">Delete</a>
             </td>
         </tr>
 }

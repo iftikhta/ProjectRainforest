@@ -256,7 +256,7 @@ namespace ProjectRainforest.Controllers
         //Needs correct redirection etc
         [HttpGet]
         [Authorize(Roles = "Vendor")]
-        public ViewResult DeleteProduct(int ProductID)
+        public ActionResult DeleteProduct(int ProductID)
         {
 
             string userId = _userManager.GetUserId(HttpContext.User);
@@ -272,8 +272,8 @@ namespace ProjectRainforest.Controllers
                 context.SaveChanges();
                 context.Products.Remove(product);
                 context.SaveChanges();
-                
-                return View();
+
+                return RedirectToAction("ShowMyProducts");
             }
 
             return View("Error");
