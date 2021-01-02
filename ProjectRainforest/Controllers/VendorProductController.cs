@@ -22,19 +22,23 @@ namespace ProjectRainforest.Controllers
         }
 
 
-        //Must also include product infos
+        //Includes Products and ProductInfos
+        //VERY useful URL that solved issues https://stackoverflow.com/questions/59199593/net-core-3-0-possible-object-cycle-was-detected-which-is-not-supported
         [HttpGet]
         [Route("[Action]/{VendorID}")]
         public IActionResult GetVendorProducts(int VendorID) //use [FromRoute] before int if problems
         {
-            var MatchedProducts = context.Products.Where(x=> x.VendorId.Equals(VendorID)).ToList();
+            List<Product> MatchedProducts = context.Products.Where(x=> x.VendorId.Equals(VendorID)).ToList();
             List<ProductInfo> MatchedInfos = new List<ProductInfo>();
             foreach (Product p in MatchedProducts)
             {
-                MatchedInfos.Add(context.ProductInfos.FirstOrDefault(x=> x.ProductId.Equals(p.ProductId)));
+                MatchedInfos.Add(context.ProductInfos.Find(p.ProductId));
             }
-            //var MatchedInfos = context.ProductInfos.Where(x => x.ProductId. MatchedProducts);
-            return Ok(MatchedProducts);
+
+            var CombinedData = new List<dynamic>(); //beautiful 
+            CombinedData.Add(MatchedProducts);
+            CombinedData.Add(MatchedInfos);
+            return Ok(CombinedData);
         }
     }
 }
