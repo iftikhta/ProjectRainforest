@@ -300,8 +300,8 @@ namespace ProjectRainforest.Controllers
                 return RedirectToAction("SignUp", "Vendor");
             }
 
-            List<Product> products = context.Products.Where(x=> x.VendorId.Equals(user.VendorID)).ToList();
-       
+            List<Product> products = context.Products.Where(x => x.VendorId.Equals(user.VendorID)).ToList();
+            ViewBag.VendId = user.VendorID;
             return View(products);
         }
 
