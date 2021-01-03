@@ -290,20 +290,19 @@ namespace ProjectRainforest.Controllers
 
 
         [Authorize(Roles = "Vendor")]
-        public ViewResult ShowMyProducts()
+        public async Task<IActionResult> ShowMyProductsAsync()
         {
-            string userId = _userManager.GetUserId(HttpContext.User);
-            int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
-            List<Product> products = context.Products.ToList();
-            List<Product> ownedProducst = new List<Product>();
-            foreach (Product p in products)
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user.VendorID == null)
             {
-                if (p.VendorId == vendId)
-                {
-                    ownedProducst.Add(p);
-                }
+                return RedirectToAction("SignUp", "Vendor");
             }
-            return View(ownedProducst);
+
+            List<Product> products = context.Products.Where(x=> x.VendorId.Equals(user.VendorID)).ToList();
+       
+            return View(products);
         }
 
         [HttpPost]
