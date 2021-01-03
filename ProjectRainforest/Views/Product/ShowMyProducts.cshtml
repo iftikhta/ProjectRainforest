@@ -5,7 +5,8 @@
 }
 
 <h1>ShowMyProducts</h1>
-<input class="form-control" type="text" id="Name" name="Name" value="@($"{Context.Request.Scheme}://{Context.Request.Host}/api/VendorProduct/GetVendorProducts/{ViewBag.VendId}")" readonly="readonly">
+<label>Vendor API:</label>
+<input class="form-control col-6 mb-4" type="text" id="Name" name="Name" value="@($"{Context.Request.Scheme}://{Context.Request.Host}/api/VendorProduct/GetVendorProducts/{ViewBag.VendId}")" readonly="readonly">
 <table class="table">
     <thead>
         <tr>
