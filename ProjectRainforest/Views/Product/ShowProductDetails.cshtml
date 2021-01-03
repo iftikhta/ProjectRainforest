@@ -1,0 +1,18 @@
+﻿@model ProductInfo
+@{
+    Layout = "_Layout";
+}
+<a asp-controller="Product" asp-action="ShowMyProducts">Back</a> 
+
+<div class="row ml-2">
+    <div style="max-width: 18rem; min-width: 18rem; margin: 20px;" text-align: center">
+        <img class="card-img-top" src="@Model.ProductImg" alt="Image Not Found">
+    </div>
+    <div style="margin: 20px;">
+        <p>
+            Description: @Model.ProductDescription<br />
+            Price: @Model.ProductPrice$<br />
+        </p>
+    </div>
+</div>
+

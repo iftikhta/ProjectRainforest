@@ -263,8 +263,7 @@ namespace ProjectRainforest.Controllers
             int vendId = (int)context.AspNetUsers.Find(userId).VendorId;
             
             Product product = context.Products.Find(ProductID);
-
-            if(vendId == product.VendorId)
+            if (vendId == product.VendorId)
             {
                 ProductInfo productInfo = context.ProductInfos.Find(ProductID);
 
@@ -277,6 +276,15 @@ namespace ProjectRainforest.Controllers
             }
 
             return View("Error");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Vendor")]
+        public ActionResult ShowProductDetails(int ProductID)
+        {
+            ProductInfo productInfo = context.ProductInfos.Find(ProductID);
+
+            return View(productInfo);
         }
 
 
