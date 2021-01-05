@@ -12,7 +12,7 @@ namespace ProjectRainforest.Controllers
     [ApiController]
     public class VendorProductController : ControllerBase
     {
-        public static RainforestDBContext context = new RainforestDBContext();
+        public RainforestDBContext context = new RainforestDBContext();
 
         [HttpGet]
         [Route("[Action]")]
@@ -38,6 +38,7 @@ namespace ProjectRainforest.Controllers
             //var CombinedData = new List<dynamic>(); //beautiful 
             //CombinedData.Add(MatchedProducts);
             //CombinedData.Add(MatchedInfos);
+            //context.SaveChanges();
             return Ok(MatchedProducts);
         }
     }
