@@ -29,15 +29,15 @@ namespace ProjectRainforest.Controllers
         public IActionResult GetVendorProducts(int VendorID) //use [FromRoute] before int if problems
         {
             List<Product> MatchedProducts = context.Products.Where(x=> x.VendorId.Equals(VendorID)).ToList();
-            List<ProductInfo> MatchedInfos = new List<ProductInfo>();
-            foreach (Product p in MatchedProducts)
-            {
-                MatchedInfos.Add(context.ProductInfos.Find(p.ProductId));
-            }
+            //List<ProductInfo> MatchedInfos = new List<ProductInfo>();
+            //foreach (Product p in MatchedProducts)
+            //{
+            //    MatchedInfos.Add(context.ProductInfos.Find(p.ProductId));
+            //}
 
             var CombinedData = new List<dynamic>(); //beautiful 
             CombinedData.Add(MatchedProducts);
-            CombinedData.Add(MatchedInfos);
+            //CombinedData.Add(MatchedInfos);
             return Ok(CombinedData);
         }
     }
